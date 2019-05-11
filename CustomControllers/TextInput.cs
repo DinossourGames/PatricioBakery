@@ -16,7 +16,7 @@ namespace CustomControllers
         public Color HintColor { get; set; } 
         public string Hint { get; set; }
         public Color DefaultColor { get; set; }
-
+        public Font Fonte { get => Font; set => Font = value; }
 
         public TextInput()
         {
