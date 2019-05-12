@@ -19,6 +19,22 @@ namespace RisePrototype
 
 
         #region Window Drag And Shadows
+
+        internal static class NativeWinAPI
+        {
+            internal static readonly int GWL_EXSTYLE = -20;
+            internal static readonly int WS_EX_COMPOSITED = 0x02000000;
+
+            [DllImport("user32")]
+            internal static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+
+            [DllImport("user32")]
+            internal static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+        }
+
+
+
+
         [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
@@ -124,10 +140,15 @@ namespace RisePrototype
             m_aeroEnabled = false;
 
             InitializeComponent();
+
+            int style = NativeWinAPI.GetWindowLong(this.Handle, NativeWinAPI.GWL_EXSTYLE);
+            style |= NativeWinAPI.WS_EX_COMPOSITED;
+            NativeWinAPI.SetWindowLong(this.Handle, NativeWinAPI.GWL_EXSTYLE, style);
         }
 
         private void OnLoad(object sender, EventArgs e)
         {
+            btnLogin.Select();
             this.ActiveControl = pictureBox1;
             Sg.Reference = new FirebaseClient(Sg.BaseUrl);
             txtPass.TextInput.KeyPress += TxtPass_KeyPress;
@@ -216,9 +237,9 @@ namespace RisePrototype
 
         private async void Label2_Click(object sender, EventArgs e)
         {
-            Sg.LoginForm.Hide();
+            //Sg.LoginForm.Hide();
             //Sg.LoginForm.ShowInTaskbar = true;
-            var form2 = new Signup();
+            var form2 = new Signup { ShowInTaskbar = false };
             var result = form2.ShowDialog();
             if (result == DialogResult.OK)
             {

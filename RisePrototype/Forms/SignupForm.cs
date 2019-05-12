@@ -15,8 +15,25 @@ namespace RisePrototype
 {
     public partial class Signup : Form
     {
+        string texto = "We're looking for new employees. So, if you're interested in working, and receive absolutely nothing in return, this is the right place for you!";
 
         #region Window Drag And Shadows
+
+        internal static class NativeWinAPI
+        {
+            internal static readonly int GWL_EXSTYLE = -20;
+            internal static readonly int WS_EX_COMPOSITED = 0x02000000;
+
+            [DllImport("user32")]
+            internal static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+
+            [DllImport("user32")]
+            internal static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+        }
+
+
+
+
         [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
@@ -122,10 +139,17 @@ namespace RisePrototype
 
         public Signup()
         {
+            m_aeroEnabled = false;
             InitializeComponent();
+            int style = NativeWinAPI.GetWindowLong(this.Handle, NativeWinAPI.GWL_EXSTYLE);
+            style |= NativeWinAPI.WS_EX_COMPOSITED;
+            NativeWinAPI.SetWindowLong(this.Handle, NativeWinAPI.GWL_EXSTYLE, style);
         }
         private void Signup_Load(object sender, EventArgs e)
         {
+            label4.Text = Justifier.JustifyParagraph(texto,new Font("Lato Hairline",12f), label4.ClientSize.Width);
+            btnLogin.Select();
+            this.ActiveControl = pictureBox1;
             txtPass.TextInput.KeyPress += TxtPass_KeyPress;
             txtConfirmPass.TextInput.KeyPress += TxtConfirmPass_KeyPress;
             txtUser.TextInput.KeyPress += TxtUser_KeyPress;
@@ -264,6 +288,14 @@ namespace RisePrototype
             
         }
 
+        private void PictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
 
+            }
+        }
     }
 }

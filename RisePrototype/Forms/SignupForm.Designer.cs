@@ -81,7 +81,7 @@
             this.btnLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLogin.ForeColor = System.Drawing.Color.White;
             this.btnLogin.GradientAngle = 0F;
-            this.btnLogin.Location = new System.Drawing.Point(54, 443);
+            this.btnLogin.Location = new System.Drawing.Point(52, 452);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(272, 51);
             this.btnLogin.TabIndex = 9;
@@ -102,7 +102,7 @@
             this.txtUser.Icon = ((System.Drawing.Image)(resources.GetObject("txtUser.Icon")));
             this.txtUser.InputText = "Username";
             this.txtUser.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(229)))), ((int)(((byte)(231)))));
-            this.txtUser.Location = new System.Drawing.Point(54, 275);
+            this.txtUser.Location = new System.Drawing.Point(52, 273);
             this.txtUser.Name = "txtUser";
             this.txtUser.PasswordCharacter = '\0';
             this.txtUser.Size = new System.Drawing.Size(272, 38);
@@ -123,9 +123,9 @@
             this.txtPass.Icon = ((System.Drawing.Image)(resources.GetObject("txtPass.Icon")));
             this.txtPass.InputText = "Username";
             this.txtPass.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(229)))), ((int)(((byte)(231)))));
-            this.txtPass.Location = new System.Drawing.Point(54, 319);
+            this.txtPass.Location = new System.Drawing.Point(52, 320);
             this.txtPass.Name = "txtPass";
-            this.txtPass.PasswordCharacter = '*';
+            this.txtPass.PasswordCharacter = '•';
             this.txtPass.Size = new System.Drawing.Size(272, 38);
             this.txtPass.TabIndex = 11;
             // 
@@ -144,9 +144,9 @@
             this.txtConfirmPass.Icon = ((System.Drawing.Image)(resources.GetObject("txtConfirmPass.Icon")));
             this.txtConfirmPass.InputText = "Username";
             this.txtConfirmPass.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(229)))), ((int)(((byte)(231)))));
-            this.txtConfirmPass.Location = new System.Drawing.Point(54, 363);
+            this.txtConfirmPass.Location = new System.Drawing.Point(52, 368);
             this.txtConfirmPass.Name = "txtConfirmPass";
-            this.txtConfirmPass.PasswordCharacter = '*';
+            this.txtConfirmPass.PasswordCharacter = '•';
             this.txtConfirmPass.Size = new System.Drawing.Size(272, 38);
             this.txtConfirmPass.TabIndex = 12;
             // 
@@ -155,7 +155,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Lato Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(229)))), ((int)(((byte)(231)))));
-            this.label1.Location = new System.Drawing.Point(162, 501);
+            this.label1.Location = new System.Drawing.Point(160, 517);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(57, 19);
             this.label1.TabIndex = 13;
@@ -166,7 +166,7 @@
             // 
             this.label2.Font = new System.Drawing.Font("Lato", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(51, 406);
+            this.label2.Location = new System.Drawing.Point(60, 409);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(275, 23);
             this.label2.TabIndex = 14;
@@ -181,6 +181,7 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 15;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseDown);
             // 
             // label4
             // 
@@ -191,8 +192,6 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(272, 117);
             this.label4.TabIndex = 17;
-            this.label4.Text = "We\'re looking for new employees. So, if you\'re interested in working, and receive" +
-    " absolutely nothing in return, this is the right place for you!";
             // 
             // label5
             // 
@@ -210,17 +209,17 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(380, 550);
+            this.ClientSize = new System.Drawing.Size(380, 564);
+            this.Controls.Add(this.txtUser);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtConfirmPass);
             this.Controls.Add(this.txtPass);
-            this.Controls.Add(this.txtUser);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.minimize);
             this.Controls.Add(this.close);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.pictureBox1);
             this.ForeColor = System.Drawing.Color.Coral;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
