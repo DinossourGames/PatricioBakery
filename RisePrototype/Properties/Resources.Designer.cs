@@ -103,6 +103,16 @@ namespace RisePrototype.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap detective_pikachu_1_ {
+            get {
+                object obj = ResourceManager.GetObject("detective-pikachu[1]", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap lock_filled {
             get {
                 object obj = ResourceManager.GetObject("lock_filled", resourceCulture);
@@ -146,6 +156,16 @@ namespace RisePrototype.Properties {
         internal static System.Drawing.Bitmap PatricioBakery {
             get {
                 object obj = ResourceManager.GetObject("PatricioBakery", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap source {
+            get {
+                object obj = ResourceManager.GetObject("source", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

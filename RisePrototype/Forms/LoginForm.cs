@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Firebase.Database;
@@ -197,8 +198,19 @@ namespace RisePrototype
                     {
                         user.IsOnline = true;
                         Sg.User = user;
+                        //new Thread(() => { new CustomMessageBox().Show("Senha incorreta", "Erro de Login", Sg.AccentColor); }).te;
                         await Sg.UpdateUser();
-                        new CustomMessageBox().Show($"Logado Usuario: {Sg.User.Username}\nId: {Sg.User.Id}", "Sucesso", Sg.AccentColor);
+                        var game = new GameScreen();
+                        var result = game.ShowDialog();
+                        if (result == DialogResult.Cancel)
+                        {
+                            if (Sg.IsValidUser)
+                            {
+                                Sg.User.IsOnline = false;
+                                await Sg.UpdateUser();
+                            }
+                            Sg.LoginForm.Close();
+                        }
                     }
                     else
                         new CustomMessageBox().Show("Senha incorreta", "Erro de Login", Sg.AccentColor);

@@ -49,8 +49,20 @@ namespace RisePrototype
         }
 
         public static bool IsValidUser { get => User == null ? false : true; }
+        public static string StringPath { get; private set; }
 
         #region StaticMethods
+
+        public static void Initiate()
+        {
+            Reference.Child("Image").AsObservable<string>().Subscribe(i => {
+                StringPath = i.Object;
+            });
+        }
+
+
+
+
         //Create
         public async static Task<bool> CreateUserAsync(User user)
         {
