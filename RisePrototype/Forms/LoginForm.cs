@@ -91,6 +91,8 @@ namespace RisePrototype
                     Sg.User = user.First().Object;
                     if (Sg.User.Password == txtPass.InputText)
                     {
+                        Sg.User.IsOnline = true;
+                        await Sg.Reference.Child("Users").Child(Sg.User.Id).PutAsync(Sg.User);
                         new CustomMessageBox().Show($"Logado Usuario: {Sg.User.Username}\nId: {Sg.User.Id}", "Sucesso", Sg.AccentColor);
                     }
                     else
@@ -106,11 +108,18 @@ namespace RisePrototype
             }
         }
 
-        private void Close_Click(object sender, EventArgs e)
+        private async void Close_Click(object sender, EventArgs e)
         {
+            try
+            {
+                Sg.User.IsOnline = false;
+                if (Sg.User.Id != null)
+                    await Sg.Reference.Child("Users").Child(Sg.User.Id).PutAsync(Sg.User);
+            }
+            catch { }
             this.Close();
             Sg.LoginForm.Close();
-            
+
         }
 
         private void Minimize_Click(object sender, EventArgs e)
@@ -128,7 +137,7 @@ namespace RisePrototype
             }
         }
 
-        private void Label2_Click(object sender, EventArgs e)
+        private async void Label2_Click(object sender, EventArgs e)
         {
             Sg.LoginForm.Hide();
             this.Hide();
@@ -138,11 +147,16 @@ namespace RisePrototype
             if (result == DialogResult.OK)
             {
                 Sg.LoginForm.Show();
-
                 form2.Close();
+                txtUser.InputText = Sg.User.Username;
+                txtPass.InputText = Sg.User.Password;
+
             }
             else
             {
+                Sg.User.IsOnline = false;
+                if (Sg.User.Id != null)
+                    await Sg.Reference.Child("Users").Child(Sg.User.Id).PutAsync(Sg.User);
                 Sg.LoginForm.Close();
                 Close();
             }
@@ -176,6 +190,11 @@ namespace RisePrototype
         private void Minimize_MouseLeave(object sender, EventArgs e)
         {
             minimize.Image = Sg.MinimizeButtonDefault;
+        }
+
+        private void LoginForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
         }
         // Close and minimize Buttons behaviour
 

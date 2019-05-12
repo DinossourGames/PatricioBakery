@@ -74,7 +74,7 @@
             this.btnLogin.Color0 = System.Drawing.Color.FromArgb(((int)(((byte)(182)))), ((int)(((byte)(67)))), ((int)(((byte)(63)))));
             this.btnLogin.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(182)))), ((int)(((byte)(67)))), ((int)(((byte)(63)))));
             this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLogin.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLogin.ForeColor = System.Drawing.Color.White;
             this.btnLogin.GradientAngle = 0F;
             this.btnLogin.Location = new System.Drawing.Point(54, 403);
@@ -181,6 +181,7 @@
             this.MinimizeBox = false;
             this.Name = "LoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LoginForm_FormClosing);
             this.Load += new System.EventHandler(this.OnLoad);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
             ((System.ComponentModel.ISupportInitialize)(this.minimize)).EndInit();
