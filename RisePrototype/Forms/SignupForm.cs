@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,7 +16,7 @@ namespace RisePrototype
     public partial class Signup : Form
     {
 
-        #region DragWindow
+        #region Window Drag And Shadows
         [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
@@ -23,18 +24,98 @@ namespace RisePrototype
 
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
-        private bool alreadyHas;
+
+        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern IntPtr CreateRoundRectRgn
+           (
+               int nLeftRect, // x-coordinate of upper-left corner
+               int nTopRect, // y-coordinate of upper-left corner
+               int nRightRect, // x-coordinate of lower-right corner
+               int nBottomRect, // y-coordinate of lower-right corner
+               int nWidthEllipse, // height of ellipse
+               int nHeightEllipse // width of ellipse
+            );
+
+        [DllImport("dwmapi.dll")]
+        public static extern int DwmExtendFrameIntoClientArea(IntPtr hWnd, ref MARGINS pMarInset);
+
+        [DllImport("dwmapi.dll")]
+        public static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, ref int attrValue, int attrSize);
+
+        [DllImport("dwmapi.dll")]
+        public static extern int DwmIsCompositionEnabled(ref int pfEnabled);
+
+        private bool m_aeroEnabled;                     // variables for box shadow
+        private const int CS_DROPSHADOW = 0x00020000;
+        private const int WM_NCPAINT = 0x0085;
+        private const int WM_ACTIVATEAPP = 0x001C;
+
+        public struct MARGINS                           // struct for box shadow
+        {
+            public int leftWidth;
+            public int rightWidth;
+            public int topHeight;
+            public int bottomHeight;
+        }
+        //private const int WM_NCHITTEST = 0x84;          // variables for dragging the form
+        //private const int HTCLIENT = 0x1;
+        //private const int HTCAPTION = 0x2;
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                m_aeroEnabled = CheckAeroEnabled();
+
+                CreateParams cp = base.CreateParams;
+                if (!m_aeroEnabled)
+                    cp.ClassStyle |= CS_DROPSHADOW;
+
+                return cp;
+            }
+        }
 
         public bool Locker { get; private set; }
 
-        private void Signup_MouseDown(object sender, MouseEventArgs e)
+        private bool CheckAeroEnabled()
         {
-            //used to drag the form
-            if (e.Button == MouseButtons.Left)
+            if (Environment.OSVersion.Version.Major >= 6)
             {
-                ReleaseCapture();
-                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+                int enabled = 0;
+                DwmIsCompositionEnabled(ref enabled);
+                return (enabled == 1) ? true : false;
             }
+            return false;
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            switch (m.Msg)
+            {
+                case WM_NCPAINT:                        // box shadow
+                    if (m_aeroEnabled)
+                    {
+                        var v = 2;
+                        DwmSetWindowAttribute(this.Handle, 2, ref v, 4);
+                        MARGINS margins = new MARGINS()
+                        {
+                            bottomHeight = 1,
+                            leftWidth = 1,
+                            rightWidth = 1,
+                            topHeight = 1
+                        };
+                        DwmExtendFrameIntoClientArea(this.Handle, ref margins);
+
+                    }
+                    break;
+                default:
+                    break;
+            }
+            base.WndProc(ref m);
+
+            //if (m.Msg == WM_NCHITTEST && (int)m.Result == HTCLIENT)     // drag the form
+            //    m.Result = (IntPtr)HTCAPTION;
+
         }
 
         #endregion
@@ -48,6 +129,15 @@ namespace RisePrototype
             txtPass.TextInput.KeyPress += TxtPass_KeyPress;
             txtConfirmPass.TextInput.KeyPress += TxtConfirmPass_KeyPress;
             txtUser.TextInput.KeyPress += TxtUser_KeyPress;
+        }
+        private void Signup_MouseDown(object sender, MouseEventArgs e)
+        {
+            //used to drag the form
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
         }
 
         #region ActionButtons
@@ -82,6 +172,7 @@ namespace RisePrototype
         }
         #endregion
 
+        #region ReturnKeyPress Inputs
         private void TxtUser_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Return)
@@ -110,7 +201,8 @@ namespace RisePrototype
                 base.ProcessDialogKey(Keys.Tab);
                 btnLogin.PerformClick();
             }
-        }
+        } 
+        #endregion
 
         private void Label1_Click(object sender, EventArgs e)
         {
@@ -121,13 +213,14 @@ namespace RisePrototype
 
         private async void BtnLogin_Click(object sender, EventArgs e)
         {
+
             if (!Locker)
             {
                 Locker = true;
                 var username = txtUser.InputText;
                 var password = txtPass.InputText;
                 var confirmPass = txtConfirmPass.InputText;
-
+                //validation checkup -- could use regex I know..
                 if ((username.Contains("\"") || username.Contains("\'") || username.Contains("\\")) || (username.Count() > 16 || username.Count() < 4) || (password.Contains("\"") || password.Contains("\'") || password.Contains("\\")) || (password.Count() > 24 || password.Count() < 4) || (!string.Equals(password, confirmPass)) || (string.IsNullOrEmpty(txtUser.InputText) || (string.Equals(txtUser.InputText, txtUser.Hint)) && (string.IsNullOrEmpty(txtPass.InputText) || string.Equals(txtPass.InputText, txtPass.Hint))))
                 {
                     if (username.Contains("\"") || username.Contains("\'") || username.Contains("\\"))
@@ -143,36 +236,21 @@ namespace RisePrototype
                     else if ((string.IsNullOrEmpty(txtUser.InputText) || string.Equals(txtUser.InputText, txtUser.Hint)) && (string.IsNullOrEmpty(txtPass.InputText) || string.Equals(txtPass.InputText, txtPass.Hint)))
                         new CustomMessageBox().Show("Por favor digite algo válido", "Usuario e/ou Senha", Sg.AccentColor);
                 }
-                else // se não der nenhum erro ele cai aqui
+                else // if hasn't throw any error.
                 {
 
-                    var checker = await Sg.Reference
-                                    .Child("Users")
-                                    .OrderBy("Username")
-                                    .StartAt(username)
-                                    .OnceAsync<User>();
-
-                    alreadyHas = false;
-                    checker.ToList().ForEach( i => {
-                        if (string.Equals(username, i.Object.Username))
-                            alreadyHas = true;
-
-                    });
-
+                    var alreadyHas = await Sg.HasUserAsync(username);
 
                     if (alreadyHas)
                     {
-                        new CustomMessageBox().Show($"Já exste um usuário cadastrado com esse username no banco. {checker.First().Object.Username}", "User já cadastrado", Sg.AccentColor);
+                        new CustomMessageBox().Show("Já exste um usuário cadastrado com esse username no banco.", "User já cadastrado", Sg.AccentColor);
                         Locker = false;
                     }
                     else
                     {
-
-                        var id = await Sg.Reference.Child("Users").PostAsync(new User());
-                        var user = new User { Id = id.Key, Username = username, Password = password };
-                        Sg.User = user;
-                        var result = Sg.Reference.Child("Users").Child(user.Id).PutAsync(user);
-                        if (result.Exception == null)
+                        var user = new User { Username = username, Password = password };
+                        var result = await Sg.CreateUserAsync(user);
+                        if (result)
                         {
                             Locker = false;
                             new CustomMessageBox().Show("Usuário cadastrado com sucesso", "Sucesso", Sg.AccentColor);

@@ -37,8 +37,12 @@
             this.txtConfirmPass = new CustomControllers.MaterialTextInput();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.minimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.close)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // minimize
@@ -70,11 +74,11 @@
             // btnLogin
             // 
             this.btnLogin.BorderRadius = 20;
-            this.btnLogin.ButtonText = "Login";
+            this.btnLogin.ButtonText = "Cadastrar";
             this.btnLogin.Color0 = System.Drawing.Color.FromArgb(((int)(((byte)(182)))), ((int)(((byte)(67)))), ((int)(((byte)(63)))));
             this.btnLogin.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(182)))), ((int)(((byte)(67)))), ((int)(((byte)(63)))));
             this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLogin.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLogin.ForeColor = System.Drawing.Color.White;
             this.btnLogin.GradientAngle = 0F;
             this.btnLogin.Location = new System.Drawing.Point(54, 443);
@@ -168,12 +172,47 @@
             this.label2.TabIndex = 14;
             this.label2.Text = "Please don\'t forget your password; Seriously Don\'t.";
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::RisePrototype.Properties.Resources.Dark_ery;
+            this.pictureBox1.Location = new System.Drawing.Point(12, -2);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(356, 263);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 15;
+            this.pictureBox1.TabStop = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoEllipsis = true;
+            this.label4.Font = new System.Drawing.Font("Lato Hairline", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.Black;
+            this.label4.Location = new System.Drawing.Point(54, 155);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(272, 117);
+            this.label4.TabIndex = 17;
+            this.label4.Text = "We\'re looking for new employees. So, if you\'re interested in working, and receive" +
+    " absolutely nothing in return, this is the right place for you!";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Lato", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.Black;
+            this.label5.Location = new System.Drawing.Point(109, 65);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(145, 29);
+            this.label5.TabIndex = 18;
+            this.label5.Text = "Welcome To";
+            // 
             // Signup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(380, 550);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtConfirmPass);
@@ -182,6 +221,7 @@
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.minimize);
             this.Controls.Add(this.close);
+            this.Controls.Add(this.pictureBox1);
             this.ForeColor = System.Drawing.Color.Coral;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Signup";
@@ -191,6 +231,7 @@
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Signup_MouseDown);
             ((System.ComponentModel.ISupportInitialize)(this.minimize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.close)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -206,5 +247,8 @@
         private CustomControllers.MaterialTextInput txtConfirmPass;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
     }
 }

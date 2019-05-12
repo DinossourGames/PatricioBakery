@@ -145,4 +145,10 @@
   <data name="minimize_filled" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\minus_48px_fill.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Dark_ery" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dark-ery.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PatricioBakery" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PatricioBakery.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

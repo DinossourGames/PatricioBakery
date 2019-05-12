@@ -1,4 +1,5 @@
 ﻿using Firebase.Database;
+using Firebase.Database.Query;
 using RiseModels;
 using System;
 using System.Collections.Generic;
@@ -47,6 +48,93 @@ namespace RisePrototype
             }
         }
 
+        public static bool IsValidUser { get => User == null ? false : true; }
+
+        #region StaticMethods
+        //Create
+        public async static Task<bool> CreateUserAsync(User user)
+        {
+            var result = await Reference.Child("Users").PostAsync(new User());
+            user.Id = result.Key;
+            var updateResult = await UpdateUser(user);
+            if (updateResult)
+            {
+                try
+                {
+                    var u = GetUserAsync(user);
+                    if (u != null)
+                    {
+                        User = user;
+                        return true;
+                    }
+                    return false;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
+
+
+        //Read
+        public async static Task<User> GetUserAsync(string username)
+        {
+            var response = await Reference.Child("Users").OrderBy("Username").StartAt(username).OnceAsync<User>();
+            User user = new User();
+            response.ToList().ForEach(item =>
+            {
+                if (string.Equals(username, item.Object.Username))
+                    user = item.Object;
+            });
+            return user.Id == null ? null : user;
+        }
+        public async static Task<User> GetUserAsync(User user)
+        {
+            var response = await Reference.Child("Users").OrderBy("Username").StartAt(user.Username).OnceAsync<User>();
+            User u = new User();
+            response.ToList().ForEach(item =>
+            {
+                if (string.Equals(user.Username, item.Object.Username))
+                    user = item.Object;
+            });
+            return user.Id == null ? null : user;
+        }
+        public async static Task<User> GetUserByIDAsync(string id)
+        {
+            var response = await Reference.Child("Users").Child(id).OnceAsync<User>();
+            if (response.Count > 0)
+                return response.First().Object;
+            else
+                return null;
+        }
+        public async static Task<bool> HasUserAsync(string username)
+        {
+            var response = await Reference.Child("Users").OrderBy("Username").StartAt(username).OnceAsync<User>();
+            User user = new User();
+            response.ToList().ForEach(item =>
+            {
+                if (string.Equals(username.ToLower(), item.Object.Username.ToLower()))
+                    user = item.Object;
+            });
+            return user.Id == null ? false : true;
+        }
+
+        //Update
+        public static async Task<bool> UpdateUser()
+        {
+            await Reference.Child("Users").Child(User.Id).PutAsync(User).ContinueWith(r => {return  r.Exception == null ? true : false; });
+            return false;
+        }
+            
+        public static async Task<bool> UpdateUser(User user)
+        {
+            await Reference.Child("Users").Child(user.Id).PutAsync(user).ContinueWith(r => { return r.Exception == null ? true : false; });
+            return false;
+        }
+
+        #endregion
 
     }
 }
