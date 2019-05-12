@@ -25,11 +25,28 @@ namespace RisePrototype
 
 
         #region Colors
-        public static Color LightBrown { get; } = Color.FromArgb(208, 93, 70); 
+        public static Color LightBrown { get; } = Color.FromArgb(208, 93, 70);
         public static Color DarkBrown { get; } = Color.FromArgb(153, 65, 48);
         public static Color BlackBrown { get; } = Color.FromArgb(88, 47, 34);
         public static Color AccentColor { get; } = Color.FromArgb(182, 67, 63);
+        public static Color LightGray { get; } = Color.FromArgb(226, 229, 231);
 
         #endregion
+
+        private static LoginForm loginForm;
+
+        public static LoginForm LoginForm
+        {
+            get
+            {
+                if (loginForm == null)
+                {
+                    loginForm = new LoginForm();
+                }
+                return loginForm;
+            }
+        }
+
+
     }
 }

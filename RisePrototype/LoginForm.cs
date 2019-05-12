@@ -13,7 +13,7 @@ using RiseModels;
 
 namespace RisePrototype
 {
-    public partial class Form1 : Form
+    public partial class LoginForm : Form
     {
 
 
@@ -27,9 +27,9 @@ namespace RisePrototype
         public const int HT_CAPTION = 0x2;
         #endregion
 
-       
 
-        public Form1()
+
+        public LoginForm()
         {
             InitializeComponent();
         }
@@ -45,7 +45,7 @@ namespace RisePrototype
             txtUser.TextInput.Fonte = new Font("Lato", 16, FontStyle.Regular);
 
 
-            
+
         }
 
         private void TxtPass_KeyPress(object sender, KeyPressEventArgs e)
@@ -71,11 +71,11 @@ namespace RisePrototype
         private async void BtnLogin_Click(object sender, EventArgs e)
         {
             if ((string.IsNullOrEmpty(txtUser.InputText) || string.Equals(txtUser.InputText, txtUser.Hint)) && (string.IsNullOrEmpty(txtPass.InputText) || string.Equals(txtPass.InputText, txtPass.Hint)))
-                new CustomMessageBox().Show("Por favor digite algo válido", "Usuario e/ou Senha", Sg.DarkBrown);
+                new CustomMessageBox().Show("Por favor digite algo válido", "Usuario e/ou Senha", Sg.AccentColor);
             else if (string.IsNullOrEmpty(txtUser.InputText) || string.Equals(txtUser.InputText, txtUser.Hint))
-                new CustomMessageBox().Show("Por favor digite algo válido", "Usuário Invalido", Sg.DarkBrown);
+                new CustomMessageBox().Show("Por favor digite algo válido", "Usuário Invalido", Sg.AccentColor);
             else if (string.IsNullOrEmpty(txtPass.InputText) || string.Equals(txtPass.InputText, txtPass.Hint))
-                new CustomMessageBox().Show("Por favor digite algo válido", "Senha Invalida", Sg.DarkBrown);
+                new CustomMessageBox().Show("Por favor digite algo válido", "Senha Invalida", Sg.AccentColor);
             else
             {
                 var user = await Sg.Reference
@@ -91,16 +91,16 @@ namespace RisePrototype
                     Sg.User = user.First().Object;
                     if (Sg.User.Password == txtPass.InputText)
                     {
-                        new CustomMessageBox().Show($"Logado Usuario: {Sg.User.Username}\nId: {Sg.User.Id}", "Sucesso", Sg.LightBrown);
+                        new CustomMessageBox().Show($"Logado Usuario: {Sg.User.Username}\nId: {Sg.User.Id}", "Sucesso", Sg.AccentColor);
                     }
                     else
                     {
-                        new CustomMessageBox().Show("Senha incorreta", "Erro de Login", Sg.DarkBrown);
+                        new CustomMessageBox().Show("Senha incorreta", "Erro de Login", Sg.AccentColor);
                     }
                 }
                 else
                 {
-                    new CustomMessageBox().Show("Usuário Inexistente", "Erro de Login", Sg.DarkBrown);
+                    new CustomMessageBox().Show("Usuário Inexistente", "Erro de Login", Sg.AccentColor);
 
                 }
             }
@@ -108,7 +108,9 @@ namespace RisePrototype
 
         private void Close_Click(object sender, EventArgs e)
         {
-            Close();
+            this.Close();
+            Sg.LoginForm.Close();
+            
         }
 
         private void Minimize_Click(object sender, EventArgs e)
@@ -128,7 +130,22 @@ namespace RisePrototype
 
         private void Label2_Click(object sender, EventArgs e)
         {
+            Sg.LoginForm.Hide();
+            this.Hide();
+            Sg.LoginForm.ShowInTaskbar = true;
+            var form2 = new Signup();
+            var result = form2.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                Sg.LoginForm.Show();
 
+                form2.Close();
+            }
+            else
+            {
+                Sg.LoginForm.Close();
+                Close();
+            }
         }
 
         private void Label2_MouseEnter(object sender, EventArgs e)

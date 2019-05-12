@@ -18,6 +18,7 @@ namespace CustomControllers
         public Color DefaultColor { get; set; }
         public Font Fonte { get => Font; set => Font = value; }
 
+
         public TextInput()
         {
 
