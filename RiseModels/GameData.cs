@@ -7,7 +7,7 @@ namespace RiseModels
     public class GameData
     {
         public string Id { get; set; }
-        public string UserId { get; set; }
-        public int Breads { get; set; }
+        public float Breads { get; set; }
+        public float ClickValue { get; set; }
     }
 }

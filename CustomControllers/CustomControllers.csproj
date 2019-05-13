@@ -83,5 +83,11 @@
       <DependentUpon>TextInput.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RiseModels\RiseModels.csproj">
+      <Project>{95a2f721-bc34-4e4f-a5aa-b0a7c3abdff2}</Project>
+      <Name>RiseModels</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

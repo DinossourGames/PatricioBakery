@@ -1,4 +1,5 @@
 ﻿using CustomControllers;
+using RiseModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -175,12 +176,32 @@ namespace RisePrototype
         private void GameScreen_Load(object sender, EventArgs e)
         {
             Sg.Initiate();
-            for (int i = 0; i < 7; i++)
-            {
-                flowLayoutPanel1.Controls.Add(new CustomListItem(){ Size = new Size(431, 80) });
-            }
+            GM.Initiate();
+            List<Upgrade> upgrades = GM.PrepareDumbData();
+
+            upgrades.ForEach(i => flowLayoutPanel1.Controls.Add(new CustomListItem() {
+                UpgradeName = i.UpgradeName,
+                Price = i.Price.ToString(),
+                Ammount = i.Ammount.ToString(),
+                ImageURL = i.ImageURL,
+                IconURL = i.IconURL,
+                PriceColor = GM.CancelColor
+            }));
+
+            var controllers = flowLayoutPanel1.Controls.Cast<CustomListItem>().ToList();
+            controllers.ForEach( i => {
+                i.Click += I_Click;
+            });
+
             timer1.Interval = 60;
             timer1.Start();
+        }
+
+        private void I_Click(object sender, EventArgs e)
+        {
+            //GM.BuyUpgrade(1, );
+            var a = sender as CustomListItem;
+            MessageBox.Show(a.Upgrade.ToString());
         }
 
         private void GameScreen_MouseDown(object sender, MouseEventArgs e)
@@ -200,12 +221,12 @@ namespace RisePrototype
 
         private void Timer1_Tick(object sender, EventArgs e)
         {
-
+            label1.Text = GM.Game.Breads.ToString();
         }
 
         private void PictureBox1_Click(object sender, EventArgs e)
         {
-
+            GM.ComputeClick();
         }
     }
 }
