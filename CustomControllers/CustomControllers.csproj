@@ -42,6 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomListItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomListItem.Designer.cs">
+      <DependentUpon>CustomListItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="GradientButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -64,6 +70,9 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="CustomListItem.resx">
+      <DependentUpon>CustomListItem.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GradientButton.resx">
       <DependentUpon>GradientButton.cs</DependentUpon>
     </EmbeddedResource>
