@@ -207,7 +207,7 @@ namespace RisePrototype
                             if (Sg.IsValidUser)
                             {
                                 Sg.User.IsOnline = false;
-                                await Sg.UpdateUser();
+                                await Sg.UpdateUser();  
                             }
                             Sg.LoginForm.Close();
                         }
