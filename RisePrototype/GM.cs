@@ -31,6 +31,16 @@ namespace RisePrototype
             }
         }
 
+        public static async Task<List<Upgrade>> InitiateUI()
+        {
+            var result = await Sg.Reference.Child("Upgrades").OnceAsync<Upgrade>();
+            var list = result.ToList();
+            var response = new List<Upgrade>();
+            list.Reverse();
+            list.ForEach(i => response.Add(i.Object));
+            return response;
+        }
+
         //private static bool Connect()
         //{
         //    if (State == 0)

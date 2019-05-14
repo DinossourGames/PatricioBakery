@@ -30,6 +30,8 @@ namespace RisePrototype
         public static Color DarkBrown { get; } = Color.FromArgb(153, 65, 48);
         public static Color BlackBrown { get; } = Color.FromArgb(88, 47, 34);
         public static Color AccentColor { get; } = Color.FromArgb(182, 67, 63);
+        public static Color SelectedColor { get; } = Color.FromArgb(41, 204, 99);
+        public static Color HoverColor { get; } = Color.FromArgb(162, 85, 163);
         public static Color LightGray { get; } = Color.FromArgb(226, 229, 231);
 
         #endregion

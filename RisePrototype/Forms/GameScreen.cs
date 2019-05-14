@@ -165,21 +165,43 @@ namespace RisePrototype
         #endregion
 
         public int Quantidade { get; set; } = 1;
+
+       // public string Clicked = "https://firebasestorage.googleapis.com/v0/b/patricioclicker.appspot.com/o/ai.png?alt=media&token=520bce99-f670-4bf2-9baa-3c7c4d94af60";
+
         List<Upgrade> upgrades;
         public GameScreen()
         {
+
             Sg.LoginForm.Hide();
             InitializeComponent();
             int style = NativeWinAPI.GetWindowLong(this.Handle, NativeWinAPI.GWL_EXSTYLE);
             style |= NativeWinAPI.WS_EX_COMPOSITED;
             NativeWinAPI.SetWindowLong(this.Handle, NativeWinAPI.GWL_EXSTYLE, style);
-        }
 
-        private void GameScreen_Load(object sender, EventArgs e)
-        {
+
+
             Sg.Initiate();
             GM.Initiate();
-            upgrades = GM.PrepareDumbData();
+
+            button1.FlatAppearance.MouseOverBackColor = button1.BackColor;
+            button1.FlatAppearance.MouseDownBackColor = button1.BackColor;
+
+            
+
+
+        }
+
+        private async void GameScreen_Load(object sender, EventArgs e)
+        {
+            //Sg.Initiate();
+            //GM.Initiate();
+
+            //button1.FlatAppearance.MouseOverBackColor = button1.BackColor;
+            //button1.FlatAppearance.MouseDownBackColor = button1.BackColor;
+
+            upgrades = await GM.InitiateUI();
+            lblOne.ForeColor = Sg.SelectedColor;
+
 
             int i = 0;
 
@@ -192,6 +214,9 @@ namespace RisePrototype
 
             timer1.Interval = 60;
             timer1.Start();
+
+
+
         }
 
 
@@ -199,10 +224,8 @@ namespace RisePrototype
         private void Control_Click(object sender, EventArgs e)
         {
             var item = sender as CustomListItem;
-            var upgrade = GM.BuyUpgrade(Quantidade,item.Upgrade);
+            var upgrade = GM.BuyUpgrade(Quantidade, item.Upgrade);
             item.Upgrade = upgrade;
-            MessageBox.Show(item.Upgrade.Ammount.ToString());
-
         }
 
         private void GameScreen_MouseDown(object sender, MouseEventArgs e)
@@ -225,17 +248,12 @@ namespace RisePrototype
             label1.Text = GM.Game.Breads.ToString();
         }
 
-        private void Button1_Click(object sender, EventArgs e)
-        {
-
-            GM.ComputeClick();
-        }
 
         private void LblOne_Click(object sender, EventArgs e)
         {
             Quantidade = 1;
             lblThree.ForeColor = Color.Black;
-            lblOne.ForeColor = Sg.AccentColor;
+            lblOne.ForeColor = Sg.SelectedColor;
             lblTwo.ForeColor = Color.Black;
 
         }
@@ -245,17 +263,45 @@ namespace RisePrototype
             Quantidade = 10;
             lblThree.ForeColor = Color.Black;
             lblOne.ForeColor = Color.Black;
-            lblTwo.ForeColor = Sg.AccentColor;
+            lblTwo.ForeColor = Sg.SelectedColor;
 
         }
 
         private void LblThree_Click(object sender, EventArgs e)
         {
             Quantidade = 100;
-            lblThree.ForeColor = Sg.AccentColor;
+            lblThree.ForeColor = Sg.SelectedColor;
             lblOne.ForeColor = Color.Black;
             lblTwo.ForeColor = Color.Black;
 
+        }
+
+        private void BuyEnter(object sender, EventArgs e)
+        {
+            var a = sender as Label;
+            a.ForeColor = Sg.HoverColor;
+        }
+
+        private void BuyOut(object sender, EventArgs e)
+        {
+            var a = sender as Label;
+            if (a.Text == Quantidade.ToString())
+                a.ForeColor = Sg.SelectedColor;
+            else
+                a.ForeColor = Color.Black;
+        }
+
+        private void Click_Start(object sender, MouseEventArgs e)
+        {
+            button1.BackgroundImage = Properties.Resources.bread_clicked;
+            
+
+        }
+
+        private void Click_Exit(object sender, MouseEventArgs e)
+        {
+            GM.ComputeClick();
+            button1.BackgroundImage = Properties.Resources.bread_normal;
         }
     }
 }
