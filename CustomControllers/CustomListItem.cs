@@ -9,21 +9,51 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using RiseModels;
 
+
 namespace CustomControllers
 {
-    public partial class CustomListItem : UserControl
-    {
-        private bool isSelected;
 
-        public Color BgColor { get => BackColor; set => BackColor = value;  }
+    public partial class CustomListItem : UserControl, INotifyPropertyChanged
+    {
+
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        public delegate void PropertyChangedEventHandler(object sender, PropertyChangedEventArgs e);
+
+
+#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
+        public event EventHandler OnClick;
+#pragma warning restore CS0108 // Member hides inherited member; missing new keyword
+
+        public Color BgColor { get => BackColor; set => BackColor = value; }
         public Color TextColor { get => lblUpgradeName.ForeColor; set { lblUpgradeName.ForeColor = value; lblAmmount.ForeColor = value; } }
-        public Color PriceColor { get => lblPrice.ForeColor; set => lblPrice.ForeColor = value; } 
+        public Color PriceColor { get => lblPrice.ForeColor; set => lblPrice.ForeColor = value; }
         public string ImageURL { get => pbUpgradeImage.ImageLocation; set => pbUpgradeImage.ImageLocation = value; }
         public string IconURL { get => pbBread.ImageLocation; set => pbBread.ImageLocation = value; }
-        public string UpgradeName { get => lblUpgradeName.Text; set => lblUpgradeName.Text = value; }
-        public string Price { get => lblPrice.Text; set => lblPrice.Text = value; } 
+        public string UpgradeName
+        {
+            get =>
+                 lblUpgradeName.Text;
+
+            set =>
+
+                lblUpgradeName.Text = value;
+        }
+        public string Price { get => lblPrice.Text; set => lblPrice.Text = value; }
         public string Ammount { get => lblAmmount.Text; set => lblAmmount.Text = value; }
-        public Upgrade Upgrade { get; private set; }
+        private Upgrade upgrade;
+
+        public Upgrade Upgrade
+        {
+            get { return upgrade; }
+            set
+            {
+                if (upgrade == value)
+                    return;
+                upgrade = value;
+                OnPropertyChanged("Upgrade");
+            }
+        }
+
 
         public CustomListItem(string upgradeName, string price, string ammount, string imageURL, string iconURL, Color textColor, Color priceColor, Color bgColor)
         {
@@ -37,20 +67,49 @@ namespace CustomControllers
             BgColor = bgColor;
             InitializeComponent();
         }
-
+        public CustomListItem(Upgrade upgrade)
+        {
+            UpgradeName = upgrade.UpgradeName;
+            Price = upgrade.Price.ToString();
+            Ammount = upgrade.Ammount.ToString();
+            ImageURL = upgrade.ImageURL;
+            IconURL = upgrade.IconURL;
+            TextColor = ForeColor;
+            PriceColor = Color.Red;
+            BgColor = BackColor;
+            InitializeComponent();
+        }
         public CustomListItem()
         {
             InitializeComponent();
         }
 
+
+
         private void CustomListItem_Load(object sender, EventArgs e)
         {
-
+            foreach (Control item in this.Controls)
+            {
+                item.Click += Item_Click;
+            }
+            this.Click += Item_Click;
         }
 
-        private void OnClick(object sender, EventArgs e)
+        private void Item_Click(object sender, EventArgs e)
         {
-            Upgrade = new Upgrade(ImageURL, IconURL, UpgradeName, float.Parse(Price), int.Parse(Ammount));
+            if (this.OnClick != null)
+                this.OnClick(this, e);
+        }
+
+        private void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            UpgradeName = upgrade.UpgradeName;
+            Price = upgrade.Price.ToString();
+            Ammount = upgrade.Ammount.ToString();
+            ImageURL = upgrade.ImageURL;
+            IconURL = upgrade.IconURL;
+            this.Invalidate();
         }
     }
 }

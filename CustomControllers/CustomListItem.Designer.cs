@@ -46,7 +46,6 @@
             this.pbUpgradeImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbUpgradeImage.TabIndex = 0;
             this.pbUpgradeImage.TabStop = false;
-            this.pbUpgradeImage.Click += new System.EventHandler(this.OnClick);
             // 
             // lblUpgradeName
             // 
@@ -58,7 +57,6 @@
             this.lblUpgradeName.Size = new System.Drawing.Size(218, 30);
             this.lblUpgradeName.TabIndex = 1;
             this.lblUpgradeName.Text = "Upgrade Name";
-            this.lblUpgradeName.Click += new System.EventHandler(this.OnClick);
             // 
             // pbBread
             // 
@@ -69,7 +67,6 @@
             this.pbBread.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbBread.TabIndex = 2;
             this.pbBread.TabStop = false;
-            this.pbBread.Click += new System.EventHandler(this.OnClick);
             // 
             // lblPrice
             // 
@@ -82,7 +79,6 @@
             this.lblPrice.TabIndex = 3;
             this.lblPrice.Text = "100";
             this.lblPrice.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblPrice.Click += new System.EventHandler(this.OnClick);
             // 
             // lblAmmount
             // 
@@ -94,7 +90,6 @@
             this.lblAmmount.TabIndex = 4;
             this.lblAmmount.Text = "100";
             this.lblAmmount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblAmmount.Click += new System.EventHandler(this.OnClick);
             // 
             // CustomListItem
             // 
@@ -113,7 +108,6 @@
             this.Name = "CustomListItem";
             this.Size = new System.Drawing.Size(376, 78);
             this.Load += new System.EventHandler(this.CustomListItem_Load);
-            this.Click += new System.EventHandler(this.OnClick);
             ((System.ComponentModel.ISupportInitialize)(this.pbUpgradeImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbBread)).EndInit();
             this.ResumeLayout(false);

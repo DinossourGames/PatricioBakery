@@ -98,7 +98,7 @@ namespace RisePrototype
         {
             string image = "https://conteudo.imguol.com.br/c/entretenimento/ee/2019/05/11/cena-de-pokemon-detetive-pikachu-1557603270667_v2_900x506.png";
             var upgrades = new List<Upgrade>();
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < 4; i++)
             {
                 upgrades.Add(new Upgrade(image, image, $"Dumb Upgrade {i}", i * 100f, 0));
             }

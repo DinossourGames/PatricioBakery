@@ -164,6 +164,8 @@ namespace RisePrototype
         }
         #endregion
 
+        public int Quantidade { get; set; }
+        List<Upgrade> upgrades;
         public GameScreen()
         {
             Sg.LoginForm.Hide();
@@ -177,31 +179,27 @@ namespace RisePrototype
         {
             Sg.Initiate();
             GM.Initiate();
-            List<Upgrade> upgrades = GM.PrepareDumbData();
+            upgrades = GM.PrepareDumbData();
 
-            upgrades.ForEach(i => flowLayoutPanel1.Controls.Add(new CustomListItem() {
-                UpgradeName = i.UpgradeName,
-                Price = i.Price.ToString(),
-                Ammount = i.Ammount.ToString(),
-                ImageURL = i.ImageURL,
-                IconURL = i.IconURL,
-                PriceColor = GM.CancelColor
-            }));
 
-            var controllers = flowLayoutPanel1.Controls.Cast<CustomListItem>().ToList();
-            controllers.ForEach( i => {
-                i.Click += I_Click;
-            });
+
+            foreach (var item in this.Controls.OfType<CustomListItem>())
+            {
+                item.OnClick += new EventHandler(Control_Click);
+            }
 
             timer1.Interval = 60;
             timer1.Start();
         }
 
-        private void I_Click(object sender, EventArgs e)
+
+
+        private void Control_Click(object sender, EventArgs e)
         {
-            //GM.BuyUpgrade(1, );
-            var a = sender as CustomListItem;
-            MessageBox.Show(a.Upgrade.ToString());
+            var item = sender as CustomListItem;
+            item.Upgrade = upgrades[1];
+            //item.Invalidate();
+            MessageBox.Show(item.UpgradeName);
         }
 
         private void GameScreen_MouseDown(object sender, MouseEventArgs e)
@@ -224,9 +222,37 @@ namespace RisePrototype
             label1.Text = GM.Game.Breads.ToString();
         }
 
-        private void PictureBox1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
+
             GM.ComputeClick();
+        }
+
+        private void LblOne_Click(object sender, EventArgs e)
+        {
+            Quantidade = 1;
+            lblThree.ForeColor = Color.Black;
+            lblOne.ForeColor = Sg.AccentColor;
+            lblTwo.ForeColor = Color.Black;
+
+        }
+
+        private void LblTwo_Click(object sender, EventArgs e)
+        {
+            Quantidade = 10;
+            lblThree.ForeColor = Color.Black;
+            lblOne.ForeColor = Color.Black;
+            lblTwo.ForeColor = Sg.AccentColor;
+
+        }
+
+        private void LblThree_Click(object sender, EventArgs e)
+        {
+            Quantidade = 100;
+            lblThree.ForeColor = Sg.AccentColor;
+            lblOne.ForeColor = Color.Black;
+            lblTwo.ForeColor = Color.Black;
+
         }
     }
 }
