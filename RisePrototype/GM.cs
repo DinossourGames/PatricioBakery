@@ -96,12 +96,27 @@ namespace RisePrototype
 
         internal static List<Upgrade> PrepareDumbData()
         {
-            string image = "https://conteudo.imguol.com.br/c/entretenimento/ee/2019/05/11/cena-de-pokemon-detetive-pikachu-1557603270667_v2_900x506.png";
+
+            string[] img = { "https://olhardigital.com.br/uploads/acervo_imagens/2019/05/r16x9/20190508084427_1200_675.jpg",
+                     "https://conteudo.imguol.com.br/c/entretenimento/ee/2019/05/11/cena-de-pokemon-detetive-pikachu-1557603270667_v2_900x506.png",
+                     "https://www.ovale.com.br/_midias/jpg/2019/05/08/pikachu-524639.jpg",
+                     "https://feededigno.com.br/wp-content/uploads/2019/05/detetive-pikachu-08-05-19-img03.jpg",
+                     "https://conteudo.imguol.com.br/c/entretenimento/cc/2019/05/08/pikachu---primeira-geracao-1557342275054_v2_600x337.jpg",
+                     "https://static1.purebreak.com.br/articles/4/86/16/4/@/323080-filme-pokemon-detetive-pikachu-e-chei-diapo-2.jpg"
+                };
+            //    Random rnd = new Random();
+            //    for (int i = 0; i < 25; i++)
+            //    {
+            //        upgrades.Add(new Upgrade(img[rnd.Next(0,img.Length)], img[rnd.Next(0, img.Length)], $"Dumb Upgrade {i}", i * 100f, 0));
+            //    }
+
             var upgrades = new List<Upgrade>();
-            for (int i = 0; i < 4; i++)
-            {
-                upgrades.Add(new Upgrade(image, image, $"Dumb Upgrade {i}", i * 100f, 0));
-            }
+
+            upgrades.Add(new Upgrade(img[3], img[3], "Pesquisa", 10000, 0));
+            upgrades.Add(new Upgrade(img[2], img[2], "Fabrica", 1000, 0));
+            upgrades.Add(new Upgrade(img[1], img[1], "Igreja", 100, 0));
+            upgrades.Add(new Upgrade(img[0], img[0], "Ajudantes", 10, 2));
+
             return upgrades;
         }
 

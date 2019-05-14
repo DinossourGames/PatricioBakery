@@ -13,12 +13,10 @@ using RiseModels;
 namespace CustomControllers
 {
 
-    public partial class CustomListItem : UserControl, INotifyPropertyChanged
+    public partial class CustomListItem : UserControl
     {
 
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        public delegate void PropertyChangedEventHandler(object sender, PropertyChangedEventArgs e);
-
+      
 
 #pragma warning disable CS0108 // Member hides inherited member; missing new keyword
         public event EventHandler OnClick;
@@ -47,10 +45,8 @@ namespace CustomControllers
             get { return upgrade; }
             set
             {
-                if (upgrade == value)
-                    return;
                 upgrade = value;
-                OnPropertyChanged("Upgrade");
+                Asdas(value);
             }
         }
 
@@ -101,15 +97,17 @@ namespace CustomControllers
                 this.OnClick(this, e);
         }
 
-        private void OnPropertyChanged(string propertyName)
+
+        private void Asdas(Upgrade up)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            UpgradeName = upgrade.UpgradeName;
-            Price = upgrade.Price.ToString();
-            Ammount = upgrade.Ammount.ToString();
-            ImageURL = upgrade.ImageURL;
-            IconURL = upgrade.IconURL;
+            UpgradeName = up.UpgradeName;
+            Price = up.Price.ToString();
+            Ammount = up.Ammount.ToString();
+            ImageURL = up.ImageURL;
+            IconURL = up.IconURL;
             this.Invalidate();
         }
+
+      
     }
 }

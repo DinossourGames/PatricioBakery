@@ -164,7 +164,7 @@ namespace RisePrototype
         }
         #endregion
 
-        public int Quantidade { get; set; }
+        public int Quantidade { get; set; } = 1;
         List<Upgrade> upgrades;
         public GameScreen()
         {
@@ -181,11 +181,13 @@ namespace RisePrototype
             GM.Initiate();
             upgrades = GM.PrepareDumbData();
 
-
+            int i = 0;
 
             foreach (var item in this.Controls.OfType<CustomListItem>())
             {
                 item.OnClick += new EventHandler(Control_Click);
+                item.Upgrade = upgrades[i];
+                i++;
             }
 
             timer1.Interval = 60;
@@ -197,9 +199,10 @@ namespace RisePrototype
         private void Control_Click(object sender, EventArgs e)
         {
             var item = sender as CustomListItem;
-            item.Upgrade = upgrades[1];
-            //item.Invalidate();
-            MessageBox.Show(item.UpgradeName);
+            var upgrade = GM.BuyUpgrade(Quantidade,item.Upgrade);
+            item.Upgrade = upgrade;
+            MessageBox.Show(item.Upgrade.Ammount.ToString());
+
         }
 
         private void GameScreen_MouseDown(object sender, MouseEventArgs e)
