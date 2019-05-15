@@ -7,6 +7,7 @@ namespace RiseModels
     public class User
     {
         public string Username { get; set; }
+        public double ClicksTotais { get; set; } = 0;
         public string Password { get; set; }
         public string Id { get; set; }
         public bool IsStreamer { get; set; } = false;

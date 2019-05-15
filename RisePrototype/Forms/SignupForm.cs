@@ -147,7 +147,7 @@ namespace RisePrototype
         }
         private void Signup_Load(object sender, EventArgs e)
         {
-            label4.Text = Justifier.JustifyParagraph(texto,new Font("Lato Hairline",12f), label4.ClientSize.Width);
+            label4.Text = Justifier.JustifyParagraph(texto,new Font("Lato", 12), label4.ClientSize.Width);
             btnLogin.Select();
             this.ActiveControl = pictureBox1;
             txtPass.TextInput.KeyPress += TxtPass_KeyPress;
@@ -273,14 +273,13 @@ namespace RisePrototype
                     else
                     {
                         var user = new User { Username = username, Password = password };
-                        var result = await Sg.CreateUserAsync(user);
-                        if (result)
-                        {
-                            Locker = false;
-                            new CustomMessageBox().Show("Usuário cadastrado com sucesso", "Sucesso", Sg.AccentColor);
-                            this.Hide();
-                            DialogResult = DialogResult.OK;
-                        }
+                        await Sg.CreateUserAsync(user);
+                       
+                        Locker = false;
+                        new CustomMessageBox().Show("Usuário cadastrado com sucesso", "Sucesso", Sg.AccentColor);
+                        this.Hide();
+                        DialogResult = DialogResult.OK;
+                        
 
                     }
                 }

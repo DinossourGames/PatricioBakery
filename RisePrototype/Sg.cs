@@ -2,10 +2,8 @@
 using Firebase.Database.Query;
 using RiseModels;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace RisePrototype
@@ -139,13 +137,13 @@ namespace RisePrototype
         //Update
         public static async Task<bool> UpdateUser()
         {
-            await Reference.Child("Users").Child(User.Id).PutAsync(User).ContinueWith(r => { return r.IsFaulted == true ? false : true; });
+            await Reference.Child("Users").Child(User.Id).PutAsync(User).ContinueWith(r => { return r.IsCompleted  ? true : false; });
             return false;
         }
 
         public static async Task<bool> UpdateUser(User user)
         {
-            await Reference.Child("Users").Child(user.Id).PutAsync(user).ContinueWith(r => { return r.IsFaulted == true ? false : true; });
+            await Reference.Child("Users").Child(user.Id).PutAsync(user).ContinueWith(r => { return r.IsCompleted  ? true : false; });
             return false;
         }
 

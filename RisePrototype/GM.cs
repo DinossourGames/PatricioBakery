@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace RisePrototype
@@ -13,9 +12,11 @@ namespace RisePrototype
     {
         #region Properties
         public static ConnectionState State { get; private set; } = ConnectionState.DISCONNECTED;
-        public static GameData Game { get; private set; } = null;
+        public static GameData Game { get; set; } = null;
         public static string Pool { get; private set; } = null;
         private static GameData ServerData { get; set; }
+        public static List<Upgrade> UpgradesRef { get; private set; }
+        private static double milestone = 50;
 
         public static readonly Color OkColor = Color.Red;
         public static readonly Color CancelColor = Color.Red;
@@ -23,24 +24,93 @@ namespace RisePrototype
         #endregion
 
         #region Static Methods
-        public static void Initiate()
+        public async static Task Initiate()
         {
-            if (Game == null)
+            milestone = Sg.User.ClicksTotais == 0 ? 50 : Sg.User.ClicksTotais + 50;
+           
+            await GetUpgrades();
+            var result = await GetGamedataByIDAsync(Sg.User.Id);
+
+            ServerData = result;
+            if (ServerData == null)
             {
-                Game = new GameData() { Breads = 0, ClickValue = 1f };
+                await CreateGameData();
+                StartListenServerData();
             }
+            else
+            {
+                StartListenServerData();
+                Game = ServerData;
+            }
+
         }
 
-        public static async Task<List<Upgrade>> InitiateUI()
+        private static void StartListenServerData()
+        {
+            Sg.Reference.Child("Gamedata").Child(Sg.User.Id).AsObservable<GameData>().Subscribe(i =>
+            {
+                ServerData = i.Object;
+            });
+        }
+
+        private async static Task CreateGameData()
+        {
+            var game = new GameData()
+            {
+                Id = Sg.User.Id,
+                Breads = 0f,
+                ClicksPerSecond = 0f,
+                ClickValue = 1f,
+                Upgrades = new List<UserUpgrade>()
+            };
+
+            UpgradesRef.ForEach(i => game.Upgrades.Add(new UserUpgrade(i.ID, 0)));
+            await Sg.Reference.Child("Gamedata").Child(game.Id).PutAsync(game);
+            Game = game;
+        }
+
+        public async static Task<GameData> GetGamedataByIDAsync(string id)
+        {
+            var response = await Sg.Reference.Child("Gamedata").OnceAsync<GameData>();
+            if (response.Count > 0)
+            {
+                GameData obj = null;
+                var a = response.ToList();
+                a.ForEach(i =>
+                {
+                    if (i.Object.Id == id)
+                    {
+                        obj = i.Object;
+                    }
+                });
+                return obj;
+            }
+            else
+                return null;
+        }
+
+        public static async Task<List<Upgrade>> GetUpgrades()//it works
         {
             var result = await Sg.Reference.Child("Upgrades").OnceAsync<Upgrade>();
             var list = result.ToList();
             var response = new List<Upgrade>();
             list.Reverse();
             list.ForEach(i => response.Add(i.Object));
+            UpgradesRef = response;
             return response;
         }
 
+        public static async Task<bool> UpdateGame()
+        {
+            await Sg.Reference.Child("Gamedata").Child(Game.Id).PutAsync(Game).ContinueWith(r => { return r.IsFaulted == true ? false : true; });
+            return false;
+        }
+
+        public static async Task<bool> UpdateGame(GameData game)
+        {
+            await Sg.Reference.Child("Users").Child(game.Id).PutAsync(game).ContinueWith(r => { return r.IsFaulted == true ? false : true; });
+            return false;
+        }
         //private static bool Connect()
         //{
         //    if (State == 0)
@@ -86,50 +156,34 @@ namespace RisePrototype
         public static void ComputeClick()
         {
             Game.Breads += Game.ClickValue;
+            if (Sg.User.ClicksTotais >= milestone)
+            {
+                milestone += 50;
+                Game.ClickValue += 2;
+            }
+            Sg.User.ClicksTotais++;
         }
-        public static void ComputeClick(int clickValue)
+        public static void ComputeClick(double clickValue)
         {
             Game.Breads += clickValue;
         }
 
         public static Upgrade BuyUpgrade(int ammount, Upgrade sender)
         {
-            var price = sender.Price * ammount;
+            var up = Game.Upgrades.FirstOrDefault(i => sender.ID == i.UpgradeID);
+            var refe = UpgradesRef.FirstOrDefault(i => up.UpgradeID == i.ID);
+            sender.Ammount = up.Ammount;
+
+            double price = Math.Ceiling((refe.Price * Math.Pow(sender.PriceMultiplier, sender.Ammount))*ammount);
             if (Game.Breads >= price)
             {
                 Game.Breads -= price;
-                sender.Ammount += ammount;
+                Game.ClicksPerSecond += up.Ammount != 0 ? up.Ammount : 1 * sender.ClicksPerSecond;
+                up.Ammount += ammount;
                 return sender;
             }
             return sender;
         }
-
-        internal static List<Upgrade> PrepareDumbData()
-        {
-
-            string[] img = { "https://olhardigital.com.br/uploads/acervo_imagens/2019/05/r16x9/20190508084427_1200_675.jpg",
-                     "https://conteudo.imguol.com.br/c/entretenimento/ee/2019/05/11/cena-de-pokemon-detetive-pikachu-1557603270667_v2_900x506.png",
-                     "https://www.ovale.com.br/_midias/jpg/2019/05/08/pikachu-524639.jpg",
-                     "https://feededigno.com.br/wp-content/uploads/2019/05/detetive-pikachu-08-05-19-img03.jpg",
-                     "https://conteudo.imguol.com.br/c/entretenimento/cc/2019/05/08/pikachu---primeira-geracao-1557342275054_v2_600x337.jpg",
-                     "https://static1.purebreak.com.br/articles/4/86/16/4/@/323080-filme-pokemon-detetive-pikachu-e-chei-diapo-2.jpg"
-                };
-            //    Random rnd = new Random();
-            //    for (int i = 0; i < 25; i++)
-            //    {
-            //        upgrades.Add(new Upgrade(img[rnd.Next(0,img.Length)], img[rnd.Next(0, img.Length)], $"Dumb Upgrade {i}", i * 100f, 0));
-            //    }
-
-            var upgrades = new List<Upgrade>();
-
-            upgrades.Add(new Upgrade(img[3], img[3], "Pesquisa", 10000, 0));
-            upgrades.Add(new Upgrade(img[2], img[2], "Fabrica", 1000, 0));
-            upgrades.Add(new Upgrade(img[1], img[1], "Igreja", 100, 0));
-            upgrades.Add(new Upgrade(img[0], img[0], "Ajudantes", 10, 2));
-
-            return upgrades;
-        }
-
 
 
         #endregion

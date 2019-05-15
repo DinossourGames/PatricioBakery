@@ -31,15 +31,15 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Signup));
             this.minimize = new System.Windows.Forms.PictureBox();
             this.close = new System.Windows.Forms.PictureBox();
-            this.btnLogin = new CustomControllers.GradientButton();
-            this.txtUser = new CustomControllers.MaterialTextInput();
-            this.txtPass = new CustomControllers.MaterialTextInput();
-            this.txtConfirmPass = new CustomControllers.MaterialTextInput();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.txtUser = new CustomControllers.MaterialTextInput();
+            this.txtConfirmPass = new CustomControllers.MaterialTextInput();
+            this.txtPass = new CustomControllers.MaterialTextInput();
+            this.btnLogin = new CustomControllers.GradientButton();
             ((System.ComponentModel.ISupportInitialize)(this.minimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.close)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -70,85 +70,6 @@
             this.close.Click += new System.EventHandler(this.Close_Click);
             this.close.MouseEnter += new System.EventHandler(this.Close_MouseEnter);
             this.close.MouseLeave += new System.EventHandler(this.Close_MouseLeave);
-            // 
-            // btnLogin
-            // 
-            this.btnLogin.BorderRadius = 20;
-            this.btnLogin.ButtonText = "Cadastrar";
-            this.btnLogin.Color0 = System.Drawing.Color.FromArgb(((int)(((byte)(182)))), ((int)(((byte)(67)))), ((int)(((byte)(63)))));
-            this.btnLogin.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(182)))), ((int)(((byte)(67)))), ((int)(((byte)(63)))));
-            this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLogin.ForeColor = System.Drawing.Color.White;
-            this.btnLogin.GradientAngle = 0F;
-            this.btnLogin.Location = new System.Drawing.Point(52, 452);
-            this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(272, 51);
-            this.btnLogin.TabIndex = 9;
-            this.btnLogin.Click += new System.EventHandler(this.BtnLogin_Click);
-            // 
-            // txtUser
-            // 
-            this.txtUser.BackColor = System.Drawing.Color.White;
-            this.txtUser.BackgroundColor = System.Drawing.Color.White;
-            this.txtUser.DefaultIcon = ((System.Drawing.Image)(resources.GetObject("txtUser.DefaultIcon")));
-            this.txtUser.DefaultInputColor = System.Drawing.Color.Black;
-            this.txtUser.DefaultLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(229)))), ((int)(((byte)(231)))));
-            this.txtUser.ForegroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(229)))), ((int)(((byte)(231)))));
-            this.txtUser.HighlightedColor = System.Drawing.Color.FromArgb(((int)(((byte)(182)))), ((int)(((byte)(67)))), ((int)(((byte)(63)))));
-            this.txtUser.HighlightedIcon = global::RisePrototype.Properties.Resources.user_filled;
-            this.txtUser.Hint = "Username";
-            this.txtUser.HintColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(229)))), ((int)(((byte)(231)))));
-            this.txtUser.Icon = ((System.Drawing.Image)(resources.GetObject("txtUser.Icon")));
-            this.txtUser.InputText = "Username";
-            this.txtUser.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(229)))), ((int)(((byte)(231)))));
-            this.txtUser.Location = new System.Drawing.Point(52, 273);
-            this.txtUser.Name = "txtUser";
-            this.txtUser.PasswordCharacter = '\0';
-            this.txtUser.Size = new System.Drawing.Size(272, 38);
-            this.txtUser.TabIndex = 10;
-            // 
-            // txtPass
-            // 
-            this.txtPass.BackColor = System.Drawing.Color.White;
-            this.txtPass.BackgroundColor = System.Drawing.Color.White;
-            this.txtPass.DefaultIcon = ((System.Drawing.Image)(resources.GetObject("txtPass.DefaultIcon")));
-            this.txtPass.DefaultInputColor = System.Drawing.Color.Black;
-            this.txtPass.DefaultLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(229)))), ((int)(((byte)(231)))));
-            this.txtPass.ForegroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(229)))), ((int)(((byte)(231)))));
-            this.txtPass.HighlightedColor = System.Drawing.Color.FromArgb(((int)(((byte)(182)))), ((int)(((byte)(67)))), ((int)(((byte)(63)))));
-            this.txtPass.HighlightedIcon = global::RisePrototype.Properties.Resources.lock_filled;
-            this.txtPass.Hint = "Username";
-            this.txtPass.HintColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(229)))), ((int)(((byte)(231)))));
-            this.txtPass.Icon = ((System.Drawing.Image)(resources.GetObject("txtPass.Icon")));
-            this.txtPass.InputText = "Username";
-            this.txtPass.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(229)))), ((int)(((byte)(231)))));
-            this.txtPass.Location = new System.Drawing.Point(52, 320);
-            this.txtPass.Name = "txtPass";
-            this.txtPass.PasswordCharacter = '•';
-            this.txtPass.Size = new System.Drawing.Size(272, 38);
-            this.txtPass.TabIndex = 11;
-            // 
-            // txtConfirmPass
-            // 
-            this.txtConfirmPass.BackColor = System.Drawing.Color.White;
-            this.txtConfirmPass.BackgroundColor = System.Drawing.Color.White;
-            this.txtConfirmPass.DefaultIcon = ((System.Drawing.Image)(resources.GetObject("txtConfirmPass.DefaultIcon")));
-            this.txtConfirmPass.DefaultInputColor = System.Drawing.Color.Black;
-            this.txtConfirmPass.DefaultLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(229)))), ((int)(((byte)(231)))));
-            this.txtConfirmPass.ForegroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(229)))), ((int)(((byte)(231)))));
-            this.txtConfirmPass.HighlightedColor = System.Drawing.Color.FromArgb(((int)(((byte)(182)))), ((int)(((byte)(67)))), ((int)(((byte)(63)))));
-            this.txtConfirmPass.HighlightedIcon = global::RisePrototype.Properties.Resources.lock_filled;
-            this.txtConfirmPass.Hint = "Username";
-            this.txtConfirmPass.HintColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(229)))), ((int)(((byte)(231)))));
-            this.txtConfirmPass.Icon = ((System.Drawing.Image)(resources.GetObject("txtConfirmPass.Icon")));
-            this.txtConfirmPass.InputText = "Username";
-            this.txtConfirmPass.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(229)))), ((int)(((byte)(231)))));
-            this.txtConfirmPass.Location = new System.Drawing.Point(52, 368);
-            this.txtConfirmPass.Name = "txtConfirmPass";
-            this.txtConfirmPass.PasswordCharacter = '•';
-            this.txtConfirmPass.Size = new System.Drawing.Size(272, 38);
-            this.txtConfirmPass.TabIndex = 12;
             // 
             // label1
             // 
@@ -186,7 +107,7 @@
             // label4
             // 
             this.label4.AutoEllipsis = true;
-            this.label4.Font = new System.Drawing.Font("Lato Hairline", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Font = new System.Drawing.Font("Lato", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.Black;
             this.label4.Location = new System.Drawing.Point(54, 155);
             this.label4.Name = "label4";
@@ -203,6 +124,85 @@
             this.label5.Size = new System.Drawing.Size(145, 29);
             this.label5.TabIndex = 18;
             this.label5.Text = "Welcome To";
+            // 
+            // txtUser
+            // 
+            this.txtUser.BackColor = System.Drawing.Color.White;
+            this.txtUser.BackgroundColor = System.Drawing.Color.White;
+            this.txtUser.DefaultIcon = ((System.Drawing.Image)(resources.GetObject("txtUser.DefaultIcon")));
+            this.txtUser.DefaultInputColor = System.Drawing.Color.Black;
+            this.txtUser.DefaultLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(229)))), ((int)(((byte)(231)))));
+            this.txtUser.ForegroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(229)))), ((int)(((byte)(231)))));
+            this.txtUser.HighlightedColor = System.Drawing.Color.FromArgb(((int)(((byte)(182)))), ((int)(((byte)(67)))), ((int)(((byte)(63)))));
+            this.txtUser.HighlightedIcon = global::RisePrototype.Properties.Resources.user_filled;
+            this.txtUser.Hint = "Username";
+            this.txtUser.HintColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(229)))), ((int)(((byte)(231)))));
+            this.txtUser.Icon = ((System.Drawing.Image)(resources.GetObject("txtUser.Icon")));
+            this.txtUser.InputText = "Username";
+            this.txtUser.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(229)))), ((int)(((byte)(231)))));
+            this.txtUser.Location = new System.Drawing.Point(52, 273);
+            this.txtUser.Name = "txtUser";
+            this.txtUser.PasswordCharacter = '\0';
+            this.txtUser.Size = new System.Drawing.Size(272, 38);
+            this.txtUser.TabIndex = 10;
+            // 
+            // txtConfirmPass
+            // 
+            this.txtConfirmPass.BackColor = System.Drawing.Color.White;
+            this.txtConfirmPass.BackgroundColor = System.Drawing.Color.White;
+            this.txtConfirmPass.DefaultIcon = ((System.Drawing.Image)(resources.GetObject("txtConfirmPass.DefaultIcon")));
+            this.txtConfirmPass.DefaultInputColor = System.Drawing.Color.Black;
+            this.txtConfirmPass.DefaultLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(229)))), ((int)(((byte)(231)))));
+            this.txtConfirmPass.ForegroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(229)))), ((int)(((byte)(231)))));
+            this.txtConfirmPass.HighlightedColor = System.Drawing.Color.FromArgb(((int)(((byte)(182)))), ((int)(((byte)(67)))), ((int)(((byte)(63)))));
+            this.txtConfirmPass.HighlightedIcon = global::RisePrototype.Properties.Resources.lock_filled;
+            this.txtConfirmPass.Hint = "Username";
+            this.txtConfirmPass.HintColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(229)))), ((int)(((byte)(231)))));
+            this.txtConfirmPass.Icon = ((System.Drawing.Image)(resources.GetObject("txtConfirmPass.Icon")));
+            this.txtConfirmPass.InputText = "Username";
+            this.txtConfirmPass.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(229)))), ((int)(((byte)(231)))));
+            this.txtConfirmPass.Location = new System.Drawing.Point(52, 368);
+            this.txtConfirmPass.Name = "txtConfirmPass";
+            this.txtConfirmPass.PasswordCharacter = '•';
+            this.txtConfirmPass.Size = new System.Drawing.Size(272, 38);
+            this.txtConfirmPass.TabIndex = 12;
+            // 
+            // txtPass
+            // 
+            this.txtPass.BackColor = System.Drawing.Color.White;
+            this.txtPass.BackgroundColor = System.Drawing.Color.White;
+            this.txtPass.DefaultIcon = ((System.Drawing.Image)(resources.GetObject("txtPass.DefaultIcon")));
+            this.txtPass.DefaultInputColor = System.Drawing.Color.Black;
+            this.txtPass.DefaultLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(229)))), ((int)(((byte)(231)))));
+            this.txtPass.ForegroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(229)))), ((int)(((byte)(231)))));
+            this.txtPass.HighlightedColor = System.Drawing.Color.FromArgb(((int)(((byte)(182)))), ((int)(((byte)(67)))), ((int)(((byte)(63)))));
+            this.txtPass.HighlightedIcon = global::RisePrototype.Properties.Resources.lock_filled;
+            this.txtPass.Hint = "Username";
+            this.txtPass.HintColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(229)))), ((int)(((byte)(231)))));
+            this.txtPass.Icon = ((System.Drawing.Image)(resources.GetObject("txtPass.Icon")));
+            this.txtPass.InputText = "Username";
+            this.txtPass.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(229)))), ((int)(((byte)(231)))));
+            this.txtPass.Location = new System.Drawing.Point(52, 320);
+            this.txtPass.Name = "txtPass";
+            this.txtPass.PasswordCharacter = '•';
+            this.txtPass.Size = new System.Drawing.Size(272, 38);
+            this.txtPass.TabIndex = 11;
+            // 
+            // btnLogin
+            // 
+            this.btnLogin.BorderRadius = 20;
+            this.btnLogin.ButtonText = "Cadastrar";
+            this.btnLogin.Color0 = System.Drawing.Color.FromArgb(((int)(((byte)(182)))), ((int)(((byte)(67)))), ((int)(((byte)(63)))));
+            this.btnLogin.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(182)))), ((int)(((byte)(67)))), ((int)(((byte)(63)))));
+            this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLogin.ForeColor = System.Drawing.Color.White;
+            this.btnLogin.GradientAngle = 0F;
+            this.btnLogin.Location = new System.Drawing.Point(52, 452);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(272, 51);
+            this.btnLogin.TabIndex = 9;
+            this.btnLogin.Click += new System.EventHandler(this.BtnLogin_Click);
             // 
             // Signup
             // 

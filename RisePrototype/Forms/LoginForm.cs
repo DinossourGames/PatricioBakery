@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Firebase.Database;
+﻿using Firebase.Database;
 using Firebase.Database.Query;
-using RiseModels;
+using System;
+using System.Drawing;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace RisePrototype
 {
@@ -155,8 +147,6 @@ namespace RisePrototype
             txtPass.TextInput.KeyPress += TxtPass_KeyPress;
             txtUser.TextInput.KeyPress += TxtUser_KeyPress;
 
-            txtPass.TextInput.Fonte = new Font("Lato", 16, FontStyle.Regular);
-            txtUser.TextInput.Fonte = new Font("Lato", 16, FontStyle.Regular);
 
         }
 
@@ -200,6 +190,8 @@ namespace RisePrototype
                         Sg.User = user;
                         //new Thread(() => { new CustomMessageBox().Show("Senha incorreta", "Erro de Login", Sg.AccentColor); }).te;
                         await Sg.UpdateUser();
+
+                        await GM.Initiate();
                         var game = new GameScreen();
                         var result = game.ShowDialog();
                         if (result == DialogResult.Cancel)
@@ -207,7 +199,9 @@ namespace RisePrototype
                             if (Sg.IsValidUser)
                             {
                                 Sg.User.IsOnline = false;
-                                await Sg.UpdateUser();  
+                                await Sg.UpdateUser();
+                                await Sg.Reference.Child("Gamedata").Child(GM.Game.Id).PutAsync(GM.Game);
+
                             }
                             Sg.LoginForm.Close();
                         }

@@ -1,14 +1,9 @@
 ﻿using CustomControllers;
-using RiseModels;
+using Firebase.Database.Query;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RisePrototype
@@ -163,12 +158,11 @@ namespace RisePrototype
             minimize.Image = Sg.MinimizeButtonDefault;
         }
         #endregion
-
+        bool first = true;
         public int Quantidade { get; set; } = 1;
 
-       // public string Clicked = "https://firebasestorage.googleapis.com/v0/b/patricioclicker.appspot.com/o/ai.png?alt=media&token=520bce99-f670-4bf2-9baa-3c7c4d94af60";
+        // public string Clicked = "https://firebasestorage.googleapis.com/v0/b/patricioclicker.appspot.com/o/ai.png?alt=media&token=520bce99-f670-4bf2-9baa-3c7c4d94af60";
 
-        List<Upgrade> upgrades;
         public GameScreen()
         {
 
@@ -178,54 +172,40 @@ namespace RisePrototype
             style |= NativeWinAPI.WS_EX_COMPOSITED;
             NativeWinAPI.SetWindowLong(this.Handle, NativeWinAPI.GWL_EXSTYLE, style);
 
-
-
-            Sg.Initiate();
-            GM.Initiate();
-
             button1.FlatAppearance.MouseOverBackColor = button1.BackColor;
             button1.FlatAppearance.MouseDownBackColor = button1.BackColor;
-
-            
-
-
-        }
-
-        private async void GameScreen_Load(object sender, EventArgs e)
-        {
-            //Sg.Initiate();
-            //GM.Initiate();
-
-            //button1.FlatAppearance.MouseOverBackColor = button1.BackColor;
-            //button1.FlatAppearance.MouseDownBackColor = button1.BackColor;
-
-            upgrades = await GM.InitiateUI();
             lblOne.ForeColor = Sg.SelectedColor;
 
+            updateUi();
+        }
 
-            int i = 0;
+        private void GameScreen_Load(object sender, EventArgs e)
+        {
+
+            click_show.Text = GM.Game.ClickValue.ToString();
 
             foreach (var item in this.Controls.OfType<CustomListItem>())
             {
                 item.OnClick += new EventHandler(Control_Click);
-                item.Upgrade = upgrades[i];
-                i++;
             }
 
-            timer1.Interval = 60;
+
+            timer1.Interval = 1600;
             timer1.Start();
 
-
-
+            timer2.Interval = 1000;
+            timer2.Start();
         }
 
 
 
-        private void Control_Click(object sender, EventArgs e)
+        private async void Control_Click(object sender, EventArgs e)
         {
+            await GM.UpdateGame();
             var item = sender as CustomListItem;
-            var upgrade = GM.BuyUpgrade(Quantidade, item.Upgrade);
-            item.Upgrade = upgrade;
+            GM.BuyUpgrade(Quantidade, item.Upgrade);
+            updateUi();
+
         }
 
         private void GameScreen_MouseDown(object sender, MouseEventArgs e)
@@ -243,11 +223,48 @@ namespace RisePrototype
         }
 
 
-        private void Timer1_Tick(object sender, EventArgs e)
+        private async void Timer1_TickAsync(object sender, EventArgs e)
         {
-            label1.Text = GM.Game.Breads.ToString();
+
+            if (GM.Game.Id != null)
+            {
+                if (GM.Game.Refresh)
+                {
+                    updateUi();
+                    GM.Game.Refresh = false;
+                    await GM.UpdateGame();
+
+                }
+                else
+                {
+                    if (first)
+                    {
+                        label1.Text = GM.Game.Breads.ToString();
+                        updateUi();
+                    }
+                    await GM.UpdateGame();
+                }
+            }
         }
 
+        private void updateUi()
+        {
+            int i = 0;
+            label1.Text = GM.Game.Breads.ToString();
+            label4.Text = GM.Game.ClicksPerSecond.ToString();
+            click_show.Text = GM.Game.ClickValue.ToString();
+            foreach (var item in this.Controls.OfType<CustomListItem>())
+            {
+                item.Upgrade = GM.UpgradesRef.First(q => q.ID == GM.Game.Upgrades[i].UpgradeID);
+                item.Upgrade.Ammount = GM.Game.Upgrades[i].Ammount;
+                item.Price = ((Math.Ceiling(GM.UpgradesRef.First(b => GM.Game.Upgrades[i].UpgradeID == b.ID).Price * Math.Pow(item.Upgrade.PriceMultiplier, GM.Game.Upgrades[i].Ammount))) * Quantidade).ToString();
+                if (double.Parse(item.Price) > GM.Game.Breads)
+                    item.PriceColor = Color.Red;
+                else
+                    item.PriceColor = Color.Green;
+                i++;
+            }
+        }
 
         private void LblOne_Click(object sender, EventArgs e)
         {
@@ -255,7 +272,7 @@ namespace RisePrototype
             lblThree.ForeColor = Color.Black;
             lblOne.ForeColor = Sg.SelectedColor;
             lblTwo.ForeColor = Color.Black;
-
+            updateUi();
         }
 
         private void LblTwo_Click(object sender, EventArgs e)
@@ -264,6 +281,7 @@ namespace RisePrototype
             lblThree.ForeColor = Color.Black;
             lblOne.ForeColor = Color.Black;
             lblTwo.ForeColor = Sg.SelectedColor;
+            updateUi();
 
         }
 
@@ -273,6 +291,7 @@ namespace RisePrototype
             lblThree.ForeColor = Sg.SelectedColor;
             lblOne.ForeColor = Color.Black;
             lblTwo.ForeColor = Color.Black;
+            updateUi();
 
         }
 
@@ -289,19 +308,27 @@ namespace RisePrototype
                 a.ForeColor = Sg.SelectedColor;
             else
                 a.ForeColor = Color.Black;
+
+
         }
 
         private void Click_Start(object sender, MouseEventArgs e)
         {
             button1.BackgroundImage = Properties.Resources.bread_clicked;
-            
 
         }
 
         private void Click_Exit(object sender, MouseEventArgs e)
         {
+            click_show.Text = GM.Game.ClickValue.ToString();
             GM.ComputeClick();
+            label1.Text = GM.Game.Breads.ToString();
             button1.BackgroundImage = Properties.Resources.bread_normal;
+        }
+
+        private void Timer2_Tick(object sender, EventArgs e)
+        {
+            GM.ComputeClick(GM.Game.ClicksPerSecond);
         }
     }
 }

@@ -37,10 +37,6 @@
             this.lblThree = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.minimize = new System.Windows.Forms.PictureBox();
-            this.close = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -49,14 +45,24 @@
             this.customListItem3 = new CustomControllers.CustomListItem();
             this.customListItem2 = new CustomControllers.CustomListItem();
             this.customListItem1 = new CustomControllers.CustomListItem();
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.click_show = new System.Windows.Forms.Label();
+            this.click_value = new System.Windows.Forms.Label();
+            this.timer3 = new System.Windows.Forms.Timer(this.components);
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.minimize = new System.Windows.Forms.PictureBox();
+            this.close = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.minimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.close)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // timer1
             // 
-            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
+            this.timer1.Tick += new System.EventHandler(this.Timer1_TickAsync);
             // 
             // label1
             // 
@@ -129,67 +135,12 @@
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(222, 92);
+            this.label4.Location = new System.Drawing.Point(227, 92);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(21, 15);
+            this.label4.Size = new System.Drawing.Size(80, 15);
             this.label4.TabIndex = 17;
             this.label4.Text = "20";
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.White;
-            this.button1.BackgroundImage = global::RisePrototype.Properties.Resources.bread_normal;
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button1.CausesValidation = false;
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(132, 110);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(137, 122);
-            this.button1.TabIndex = 0;
-            this.button1.TabStop = false;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Click_Start);
-            this.button1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Click_Exit);
-            // 
-            // minimize
-            // 
-            this.minimize.Image = global::RisePrototype.Properties.Resources.minimize;
-            this.minimize.Location = new System.Drawing.Point(341, -4);
-            this.minimize.Name = "minimize";
-            this.minimize.Size = new System.Drawing.Size(36, 31);
-            this.minimize.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.minimize.TabIndex = 8;
-            this.minimize.TabStop = false;
-            this.minimize.Click += new System.EventHandler(this.Minimize_Click);
-            this.minimize.MouseEnter += new System.EventHandler(this.Minimize_MouseEnter);
-            this.minimize.MouseLeave += new System.EventHandler(this.Minimize_MouseLeave);
-            // 
-            // close
-            // 
-            this.close.Image = global::RisePrototype.Properties.Resources.close;
-            this.close.Location = new System.Drawing.Point(375, -4);
-            this.close.Name = "close";
-            this.close.Size = new System.Drawing.Size(36, 31);
-            this.close.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.close.TabIndex = 7;
-            this.close.TabStop = false;
-            this.close.Click += new System.EventHandler(this.Close_Click);
-            this.close.MouseEnter += new System.EventHandler(this.Close_MouseEnter);
-            this.close.MouseLeave += new System.EventHandler(this.Close_MouseLeave);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::RisePrototype.Properties.Resources.PatricioBakery;
-            this.pictureBox1.Location = new System.Drawing.Point(13, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(63, 59);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 22;
-            this.pictureBox1.TabStop = false;
             // 
             // panel1
             // 
@@ -307,6 +258,93 @@
             this.customListItem1.Upgrade = null;
             this.customListItem1.UpgradeName = "Upgrade Name";
             // 
+            // timer2
+            // 
+            this.timer2.Tick += new System.EventHandler(this.Timer2_Tick);
+            // 
+            // click_show
+            // 
+            this.click_show.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.click_show.Location = new System.Drawing.Point(344, 216);
+            this.click_show.Name = "click_show";
+            this.click_show.Size = new System.Drawing.Size(54, 15);
+            this.click_show.TabIndex = 28;
+            this.click_show.Text = "20";
+            // 
+            // click_value
+            // 
+            this.click_value.AutoSize = true;
+            this.click_value.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.click_value.Location = new System.Drawing.Point(280, 216);
+            this.click_value.Name = "click_value";
+            this.click_value.Size = new System.Drawing.Size(66, 15);
+            this.click_value.TabIndex = 27;
+            this.click_value.Text = "click value:";
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::RisePrototype.Properties.Resources.Ativo_1_1_;
+            this.pictureBox2.Location = new System.Drawing.Point(262, 205);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(17, 28);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 29;
+            this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::RisePrototype.Properties.Resources.PatricioBakery;
+            this.pictureBox1.Location = new System.Drawing.Point(13, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(63, 59);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 22;
+            this.pictureBox1.TabStop = false;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.White;
+            this.button1.BackgroundImage = global::RisePrototype.Properties.Resources.bread_normal;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button1.CausesValidation = false;
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(132, 110);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(137, 122);
+            this.button1.TabIndex = 0;
+            this.button1.TabStop = false;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Click_Start);
+            this.button1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Click_Exit);
+            // 
+            // minimize
+            // 
+            this.minimize.Image = global::RisePrototype.Properties.Resources.minimize;
+            this.minimize.Location = new System.Drawing.Point(341, -4);
+            this.minimize.Name = "minimize";
+            this.minimize.Size = new System.Drawing.Size(36, 31);
+            this.minimize.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.minimize.TabIndex = 8;
+            this.minimize.TabStop = false;
+            this.minimize.Click += new System.EventHandler(this.Minimize_Click);
+            this.minimize.MouseEnter += new System.EventHandler(this.Minimize_MouseEnter);
+            this.minimize.MouseLeave += new System.EventHandler(this.Minimize_MouseLeave);
+            // 
+            // close
+            // 
+            this.close.Image = global::RisePrototype.Properties.Resources.close;
+            this.close.Location = new System.Drawing.Point(375, -4);
+            this.close.Name = "close";
+            this.close.Size = new System.Drawing.Size(36, 31);
+            this.close.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.close.TabIndex = 7;
+            this.close.TabStop = false;
+            this.close.Click += new System.EventHandler(this.Close_Click);
+            this.close.MouseEnter += new System.EventHandler(this.Close_MouseEnter);
+            this.close.MouseLeave += new System.EventHandler(this.Close_MouseLeave);
+            // 
             // GameScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -314,6 +352,9 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(410, 674);
             this.ControlBox = false;
+            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.click_show);
+            this.Controls.Add(this.click_value);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.customListItem4);
@@ -341,9 +382,10 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GameScreen_FormClosing);
             this.Load += new System.EventHandler(this.GameScreen_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GameScreen_MouseDown);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.minimize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.close)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -370,5 +412,10 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.Label click_show;
+        private System.Windows.Forms.Label click_value;
+        private System.Windows.Forms.Timer timer3;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }
