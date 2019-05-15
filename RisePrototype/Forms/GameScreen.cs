@@ -257,7 +257,9 @@ namespace RisePrototype
             {
                 item.Upgrade = GM.UpgradesRef.First(q => q.ID == GM.Game.Upgrades[i].UpgradeID);
                 item.Upgrade.Ammount = GM.Game.Upgrades[i].Ammount;
-                item.Price = ((Math.Ceiling(GM.UpgradesRef.First(b => GM.Game.Upgrades[i].UpgradeID == b.ID).Price * Math.Pow(item.Upgrade.PriceMultiplier, GM.Game.Upgrades[i].Ammount))) * Quantidade).ToString();
+                
+                item.Price = Quantidade == 1 ? ((Math.Ceiling(GM.UpgradesRef.First(b => GM.Game.Upgrades[i].UpgradeID == b.ID).Price * Math.Pow(item.Upgrade.PriceMultiplier, GM.Game.Upgrades[i].Ammount))) * Quantidade).ToString() :
+                    ((Math.Ceiling(GM.UpgradesRef.First(b => GM.Game.Upgrades[i].UpgradeID == b.ID).Price * Math.Pow(item.Upgrade.PriceMultiplier, GM.Game.Upgrades[i].Ammount))) * Math.Pow((1 + GM.UpgradesRef.First(b => GM.Game.Upgrades[i].UpgradeID == b.ID).PriceMultiplier), Quantidade)).ToString();
                 if (double.Parse(item.Price) > GM.Game.Breads)
                     item.PriceColor = Color.Red;
                 else
