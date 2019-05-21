@@ -332,5 +332,10 @@ namespace RisePrototype
         {
             GM.ComputeClick(GM.Game.ClicksPerSecond);
         }
+
+        private void btnLeaderboard_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

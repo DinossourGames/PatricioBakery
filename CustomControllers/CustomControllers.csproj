@@ -43,6 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomLeaderBoard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomLeaderBoard.Designer.cs">
+      <DependentUpon>CustomLeaderBoard.cs</DependentUpon>
+    </Compile>
     <Compile Include="CustomListItem.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -62,6 +68,11 @@
       <DependentUpon>MaterialTextInput.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="TextInput.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -71,6 +82,9 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="CustomLeaderBoard.resx">
+      <DependentUpon>CustomLeaderBoard.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CustomListItem.resx">
       <DependentUpon>CustomListItem.cs</DependentUpon>
     </EmbeddedResource>
@@ -79,6 +93,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MaterialTextInput.resx">
       <DependentUpon>MaterialTextInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="TextInput.resx">
       <DependentUpon>TextInput.cs</DependentUpon>
@@ -89,6 +107,9 @@
       <Project>{95a2f721-bc34-4e4f-a5aa-b0a7c3abdff2}</Project>
       <Name>RiseModels</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2_ChapeuDourado.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
