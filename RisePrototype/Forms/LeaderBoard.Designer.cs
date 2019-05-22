@@ -1,4 +1,4 @@
-﻿namespace RisePrototype.Forms
+﻿namespace RisePrototype
 {
     partial class LeaderBoard
     {
@@ -29,10 +29,16 @@
         private void InitializeComponent()
         {
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.Rank = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.ld5 = new CustomControllers.CustomLeaderBoard();
+            this.ld4 = new CustomControllers.CustomLeaderBoard();
+            this.ld3 = new CustomControllers.CustomLeaderBoard();
+            this.ld2 = new CustomControllers.CustomLeaderBoard();
+            this.ld1 = new CustomControllers.CustomLeaderBoard();
+            this.ldPlayer = new CustomControllers.CustomLeaderBoard();
+            this.label3 = new System.Windows.Forms.Label();
+            this.close = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.close)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -42,56 +48,129 @@
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(410, 195);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownClick);
             // 
-            // Rank
+            // ld5
             // 
-            this.Rank.AutoSize = true;
-            this.Rank.Font = new System.Drawing.Font("Franklin Gothic Demi", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Rank.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(198)))), ((int)(((byte)(197)))));
-            this.Rank.Location = new System.Drawing.Point(21, 207);
-            this.Rank.Name = "Rank";
-            this.Rank.Size = new System.Drawing.Size(68, 30);
-            this.Rank.TabIndex = 1;
-            this.Rank.Text = "Rank";
+            this.ld5.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.ld5.Location = new System.Drawing.Point(12, 446);
+            this.ld5.Name = "ld5";
+            this.ld5.Position = "5";
+            this.ld5.Score = "1000000";
+            this.ld5.Size = new System.Drawing.Size(384, 53);
+            this.ld5.TabIndex = 8;
+            this.ld5.TetColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(198)))), ((int)(((byte)(197)))));
+            this.ld5.Username = "Cabeça de Alga";
             // 
-            // label1
+            // ld4
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Franklin Gothic Demi", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(198)))), ((int)(((byte)(197)))));
-            this.label1.Location = new System.Drawing.Point(109, 207);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(61, 30);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "User";
+            this.ld4.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.ld4.Location = new System.Drawing.Point(12, 387);
+            this.ld4.Name = "ld4";
+            this.ld4.Position = "4";
+            this.ld4.Score = "1000000";
+            this.ld4.Size = new System.Drawing.Size(384, 53);
+            this.ld4.TabIndex = 7;
+            this.ld4.TetColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(198)))), ((int)(((byte)(197)))));
+            this.ld4.Username = "Cabeça de Alga";
             // 
-            // label2
+            // ld3
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Franklin Gothic Demi", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(198)))), ((int)(((byte)(197)))));
-            this.label2.Location = new System.Drawing.Point(327, 207);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(61, 30);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "User";
+            this.ld3.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.ld3.Location = new System.Drawing.Point(12, 328);
+            this.ld3.Name = "ld3";
+            this.ld3.Position = "3";
+            this.ld3.Score = "1000000";
+            this.ld3.Size = new System.Drawing.Size(384, 53);
+            this.ld3.TabIndex = 6;
+            this.ld3.TetColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(198)))), ((int)(((byte)(197)))));
+            this.ld3.Username = "Cabeça de Alga";
+            // 
+            // ld2
+            // 
+            this.ld2.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.ld2.Location = new System.Drawing.Point(12, 269);
+            this.ld2.Name = "ld2";
+            this.ld2.Position = "2";
+            this.ld2.Score = "1000000";
+            this.ld2.Size = new System.Drawing.Size(384, 53);
+            this.ld2.TabIndex = 5;
+            this.ld2.TetColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(198)))), ((int)(((byte)(197)))));
+            this.ld2.Username = "Cabeça de Alga";
+            // 
+            // ld1
+            // 
+            this.ld1.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.ld1.Location = new System.Drawing.Point(12, 210);
+            this.ld1.Name = "ld1";
+            this.ld1.Position = "1";
+            this.ld1.Score = "1000000";
+            this.ld1.Size = new System.Drawing.Size(384, 53);
+            this.ld1.TabIndex = 4;
+            this.ld1.TetColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(198)))), ((int)(((byte)(197)))));
+            this.ld1.Username = "Cabeça de Alga";
+            // 
+            // ldPlayer
+            // 
+            this.ldPlayer.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.ldPlayer.Location = new System.Drawing.Point(12, 540);
+            this.ldPlayer.Name = "ldPlayer";
+            this.ldPlayer.Position = "5";
+            this.ldPlayer.Score = "1000000";
+            this.ldPlayer.Size = new System.Drawing.Size(384, 53);
+            this.ldPlayer.TabIndex = 9;
+            this.ldPlayer.TetColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(198)))), ((int)(((byte)(197)))));
+            this.ldPlayer.Username = "Cabeça de Alga";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Franklin Gothic Demi", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label3.Location = new System.Drawing.Point(129, 516);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(131, 21);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "SUA COLOCAÇÃO";
+            // 
+            // close
+            // 
+            this.close.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(80)))), ((int)(((byte)(61)))));
+            this.close.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.close.Image = global::RisePrototype.Properties.Resources.close;
+            this.close.Location = new System.Drawing.Point(374, 0);
+            this.close.Name = "close";
+            this.close.Size = new System.Drawing.Size(36, 31);
+            this.close.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.close.TabIndex = 11;
+            this.close.TabStop = false;
+            this.close.Click += new System.EventHandler(this.Close_Click);
             // 
             // LeaderBoard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(410, 674);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(410, 620);
             this.ControlBox = false;
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.Rank);
+            this.Controls.Add(this.close);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.ldPlayer);
+            this.Controls.Add(this.ld5);
+            this.Controls.Add(this.ld4);
+            this.Controls.Add(this.ld3);
+            this.Controls.Add(this.ld2);
+            this.Controls.Add(this.ld1);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "LeaderBoard";
             this.Text = "LeaderBoard";
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownClick);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.close)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -100,8 +179,13 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label Rank;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private CustomControllers.CustomLeaderBoard ld1;
+        private CustomControllers.CustomLeaderBoard ld2;
+        private CustomControllers.CustomLeaderBoard ld3;
+        private CustomControllers.CustomLeaderBoard ld4;
+        private CustomControllers.CustomLeaderBoard ld5;
+        private CustomControllers.CustomLeaderBoard ldPlayer;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.PictureBox close;
     }
 }

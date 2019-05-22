@@ -335,7 +335,8 @@ namespace RisePrototype
 
         private void btnLeaderboard_Click(object sender, EventArgs e)
         {
-
+            var leaderboard = new LeaderBoard();
+            leaderboard.Show();
         }
     }
 }

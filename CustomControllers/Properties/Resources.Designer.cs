@@ -63,9 +63,29 @@ namespace CustomControllers.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _2_ChapeuDourado {
+        internal static System.Drawing.Bitmap ChapeuCinza {
             get {
-                object obj = ResourceManager.GetObject("2_ChapeuDourado", resourceCulture);
+                object obj = ResourceManager.GetObject("ChapeuCinza", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ChapeuDourado {
+            get {
+                object obj = ResourceManager.GetObject("ChapeuDourado", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ChapeuMarrom {
+            get {
+                object obj = ResourceManager.GetObject("ChapeuMarrom", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
