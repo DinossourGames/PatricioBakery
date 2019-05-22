@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -140,6 +141,10 @@ namespace RisePrototype
         {
             InitializeComponent();
 
+
+
+
+
         }
 
 
@@ -155,6 +160,13 @@ namespace RisePrototype
                 ReleaseCapture();
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
+        }
+
+
+
+        void Sqlite()
+        {
+            //TODO:Set up Entity Framework or Ado.net
         }
 
     }
