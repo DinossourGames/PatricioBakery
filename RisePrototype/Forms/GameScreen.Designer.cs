@@ -48,12 +48,13 @@
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.click_show = new System.Windows.Forms.Label();
             this.click_value = new System.Windows.Forms.Label();
-            this.timer3 = new System.Windows.Forms.Timer(this.components);
+            this.btnLeaderboard = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
             this.minimize = new System.Windows.Forms.PictureBox();
             this.close = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.btnLeaderboard)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.minimize)).BeginInit();
@@ -281,6 +282,17 @@
             this.click_value.TabIndex = 27;
             this.click_value.Text = "click value:";
             // 
+            // btnLeaderboard
+            // 
+            this.btnLeaderboard.Image = global::RisePrototype.Properties.Resources._2_ChapeuDourado;
+            this.btnLeaderboard.Location = new System.Drawing.Point(12, 92);
+            this.btnLeaderboard.Name = "btnLeaderboard";
+            this.btnLeaderboard.Size = new System.Drawing.Size(63, 59);
+            this.btnLeaderboard.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnLeaderboard.TabIndex = 30;
+            this.btnLeaderboard.TabStop = false;
+            this.btnLeaderboard.Click += new System.EventHandler(this.btnLeaderboard_Click);
+            // 
             // pictureBox2
             // 
             this.pictureBox2.Image = global::RisePrototype.Properties.Resources.Ativo_1_1_;
@@ -352,6 +364,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(410, 674);
             this.ControlBox = false;
+            this.Controls.Add(this.btnLeaderboard);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.click_show);
             this.Controls.Add(this.click_value);
@@ -382,6 +395,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GameScreen_FormClosing);
             this.Load += new System.EventHandler(this.GameScreen_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GameScreen_MouseDown);
+            ((System.ComponentModel.ISupportInitialize)(this.btnLeaderboard)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.minimize)).EndInit();
@@ -415,7 +429,7 @@
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.Label click_show;
         private System.Windows.Forms.Label click_value;
-        private System.Windows.Forms.Timer timer3;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox btnLeaderboard;
     }
 }

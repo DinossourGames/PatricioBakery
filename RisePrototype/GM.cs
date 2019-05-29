@@ -168,29 +168,31 @@ namespace RisePrototype
             Game.Breads += clickValue;
         }
 
-        public static Upgrade BuyUpgrade(int ammount, Upgrade sender)
+        public static Upgrade BuyUpgrade(int ammount, Upgrade upgradeButton)
         {
-            var up = Game.Upgrades.FirstOrDefault(i => sender.ID == i.UpgradeID);
-            var refe = UpgradesRef.FirstOrDefault(i => up.UpgradeID == i.ID);
-            sender.Ammount = up.Ammount;
-            double price = Math.Ceiling((refe.Price * Math.Pow(sender.PriceMultiplier, sender.Ammount))*ammount);
-            double basePrice = Math.Ceiling((refe.Price * Math.Pow(sender.PriceMultiplier, sender.Ammount)));
+            var gameUpgrade = Game.Upgrades.FirstOrDefault(i => upgradeButton.ID == i.UpgradeID);
+            var upgradeReference = UpgradesRef.FirstOrDefault(i => gameUpgrade.UpgradeID == i.ID);
+
+            double baseprice = Math.Ceiling((upgradeReference.Price * Math.Pow(upgradeButton.PriceMultiplier, upgradeButton.Ammount)));
+            double price = Math.Ceiling((upgradeReference.Price * Math.Pow(upgradeButton.PriceMultiplier, upgradeButton.Ammount))*ammount);
+
+
             if (Game.Breads >= price)
             {
                 Game.Breads -= price;
-                up.Ammount += ammount;
-                Game.ClicksPerSecond += up.Ammount != 0 ? up.Ammount : 1 * sender.ClicksPerSecond;
-                return sender;
+                gameUpgrade.Ammount += ammount;
+                Game.ClicksPerSecond += gameUpgrade.Ammount != 0 ? gameUpgrade.Ammount : 1 * upgradeButton.ClicksPerSecond;
+                return upgradeButton;
             }
             else
             {
-                var qq = Math.Floor(Game.Breads / basePrice);
-                var value = basePrice * qq;
-                Game.Breads -= value;
-                up.Ammount += (int)qq;
-                Game.ClicksPerSecond += up.Ammount != 0 ? up.Ammount : 1 * sender.ClicksPerSecond;
+                var valor = baseprice * Math.Pow((1 + upgradeButton.PriceMultiplier), ammount);
+                var qq = Math.Floor(Game.Breads/valor);
+                Game.Breads -= qq * baseprice;
+                gameUpgrade.Ammount += (int)Math.Floor(qq);
+                Game.ClicksPerSecond += gameUpgrade.Ammount != 0 ? gameUpgrade.Ammount : 1 * upgradeButton.ClicksPerSecond;
             }
-            return sender;
+            return upgradeButton;
         }
 
 
