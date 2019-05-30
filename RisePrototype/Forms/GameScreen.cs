@@ -199,9 +199,8 @@ namespace RisePrototype
 
 
 
-        private async void Control_Click(object sender, EventArgs e)
+        private void Control_Click(object sender, EventArgs e)
         {
-            await GM.UpdateGame();
             var item = sender as CustomListItem;
             GM.BuyUpgrade(Quantidade, item.Upgrade);
             updateUi();
@@ -335,8 +334,7 @@ namespace RisePrototype
 
         private void btnLeaderboard_Click(object sender, EventArgs e)
         {
-            var leaderboard = new LeaderBoard();
-            leaderboard.Show();
+            RestHelper.GetServerIp();
         }
     }
 }

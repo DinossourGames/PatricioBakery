@@ -150,6 +150,7 @@
     <Compile Include="Justifier.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RestHelper.cs" />
     <Compile Include="Sg.cs" />
     <Compile Include="Forms\SignupForm.cs">
       <SubType>Form</SubType>

@@ -141,10 +141,6 @@ namespace RisePrototype
         {
             InitializeComponent();
 
-
-
-
-
         }
 
 

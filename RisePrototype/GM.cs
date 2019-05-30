@@ -27,7 +27,7 @@ namespace RisePrototype
         public async static Task Initiate()
         {
             milestone = Sg.User.ClicksTotais == 0 ? 50 : Sg.User.ClicksTotais + 50;
-           
+
             await GetUpgrades();
             var result = await GetGamedataByIDAsync(Sg.User.Id);
 
@@ -47,9 +47,10 @@ namespace RisePrototype
 
         private static void StartListenServerData()
         {
-            Sg.Reference.Child("Gamedata").Child(Sg.User.Id).AsObservable<GameData>().Subscribe(i =>
+            Sg.Reference.Child("Gamedata").AsObservable<GameData>().Subscribe(i =>
             {
-                ServerData = i.Object;
+                if (i.Key == Sg.User.Id)
+                    ServerData = i.Object;
             });
         }
 
@@ -111,6 +112,7 @@ namespace RisePrototype
             await Sg.Reference.Child("Users").Child(game.Id).PutAsync(game).ContinueWith(r => { return r.IsFaulted == true ? false : true; });
             return false;
         }
+
         //private static bool Connect()
         //{
         //    if (State == 0)
@@ -174,7 +176,7 @@ namespace RisePrototype
             var upgradeReference = UpgradesRef.FirstOrDefault(i => gameUpgrade.UpgradeID == i.ID);
 
             double baseprice = Math.Ceiling((upgradeReference.Price * Math.Pow(upgradeButton.PriceMultiplier, upgradeButton.Ammount)));
-            double price = Math.Ceiling((upgradeReference.Price * Math.Pow(upgradeButton.PriceMultiplier, upgradeButton.Ammount))*ammount);
+            double price = Math.Ceiling((upgradeReference.Price * Math.Pow(upgradeButton.PriceMultiplier, upgradeButton.Ammount)) * ammount);
 
 
             if (Game.Breads >= price)
@@ -187,7 +189,7 @@ namespace RisePrototype
             else
             {
                 var valor = baseprice * Math.Pow((1 + upgradeButton.PriceMultiplier), ammount);
-                var qq = Math.Floor(Game.Breads/valor);
+                var qq = Math.Floor(Game.Breads / valor);
                 Game.Breads -= qq * baseprice;
                 gameUpgrade.Ammount += (int)Math.Floor(qq);
                 Game.ClicksPerSecond += gameUpgrade.Ammount != 0 ? gameUpgrade.Ammount : 1 * upgradeButton.ClicksPerSecond;
