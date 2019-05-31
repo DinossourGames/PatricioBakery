@@ -160,8 +160,11 @@ namespace RisePrototype
         }
         #endregion
         bool first = true;
-        public int Quantidade { get; set; } = 1;
+        private bool locked;
 
+        public int Quantidade { get; set; } = 1;
+        public Pool Pool { get; set; }
+        public Player Player { get; private set; }
 
         public GameScreen()
         {
@@ -177,6 +180,40 @@ namespace RisePrototype
             lblOne.ForeColor = Sg.SelectedColor;
 
             updateUi();
+            Sg.ix = new List<Iten>();
+
+            Sg.Reference.Child("Pool").AsObservable<Pool>().Subscribe(i =>
+            {
+                if (i.Object != null)
+                {
+                    Sg.ix = i.Object.Items;
+                }
+                else
+                {
+                    Sg.ix = null;
+                }
+            });
+
+
+            Sg.Reference.Child("Gamedata1").AsObservable<Player>().Subscribe(play =>
+            {
+                try
+                {
+                    if (play.Object != null)
+                    {
+                        if (play.Object.IsPlaying)
+                            Player = play.Object;
+                        else
+                            Player = null;
+                    }
+                    else
+                        Player = null;
+                }
+                catch { }
+
+            });
+
+
         }
 
         private void GameScreen_Load(object sender, EventArgs e)
@@ -225,6 +262,16 @@ namespace RisePrototype
         private async void Timer1_TickAsync(object sender, EventArgs e)
         {
 
+            if (Sg.ix == null)
+            {
+                btnLeaderboard.Visible = false;
+            }
+            else
+            {
+                btnLeaderboard.Visible = true;
+            }
+
+
             if (GM.Game.Id != null)
             {
                 if (GM.Game.Refresh)
@@ -256,7 +303,7 @@ namespace RisePrototype
             {
                 item.Upgrade = GM.UpgradesRef.First(q => q.ID == GM.Game.Upgrades[i].UpgradeID);
                 item.Upgrade.Ammount = GM.Game.Upgrades[i].Ammount;
-                
+
                 item.Price = Quantidade == 1 ? ((Math.Ceiling(GM.UpgradesRef.First(b => GM.Game.Upgrades[i].UpgradeID == b.ID).Price * Math.Pow(item.Upgrade.PriceMultiplier, GM.Game.Upgrades[i].Ammount))) * Quantidade).ToString() :
                     (Math.Floor(GM.UpgradesRef.First(b => GM.Game.Upgrades[i].UpgradeID == b.ID).Price * Math.Pow((1 + GM.UpgradesRef.First(b => GM.Game.Upgrades[i].UpgradeID == b.ID).PriceMultiplier), Quantidade))).ToString();
                 if (double.Parse(item.Price) > GM.Game.Breads)
@@ -321,20 +368,58 @@ namespace RisePrototype
 
         private void Click_Exit(object sender, MouseEventArgs e)
         {
-            click_show.Text = GM.Game.ClickValue.ToString();
-            GM.ComputeClick();
-            label1.Text = GM.Game.Breads.ToString();
+            if (!locked)
+            {
+
+                click_show.Text = GM.Game.ClickValue.ToString();
+                GM.ComputeClick();
+                label1.Text = GM.Game.Breads.ToString();
+            }
+
             button1.BackgroundImage = Properties.Resources.bread_normal;
         }
 
         private void Timer2_Tick(object sender, EventArgs e)
         {
-            GM.ComputeClick(GM.Game.ClicksPerSecond);
+            if (Player != null)
+            {
+                if (Player.ItemAtual != null)
+                {
+                    if (Player.ItemAtual.Id == "-LgCnr4YC1pVnwgIYXEs")
+                    {
+                        locked = true;
+                    }
+                    else
+                    {
+                        locked = false;
+                    }
+
+
+                }
+                else
+                {
+                    locked = false;
+                }
+            }
+            else
+            {
+                locked = false;
+            }
+
+            if (!locked)
+            {
+                GM.ComputeClick(GM.Game.ClicksPerSecond);
+            }
         }
 
         private void btnLeaderboard_Click(object sender, EventArgs e)
         {
-            
+            new Forms.Pool().Show();
+        }
+
+        private void CustomListItem1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 

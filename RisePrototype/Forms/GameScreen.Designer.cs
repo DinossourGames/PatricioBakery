@@ -258,6 +258,7 @@
             this.customListItem1.TextColor = System.Drawing.Color.Black;
             this.customListItem1.Upgrade = null;
             this.customListItem1.UpgradeName = "Upgrade Name";
+            this.customListItem1.Load += new System.EventHandler(this.CustomListItem1_Load);
             // 
             // timer2
             // 

@@ -2,6 +2,7 @@
 using Firebase.Database.Query;
 using RiseModels;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
@@ -49,6 +50,7 @@ namespace RisePrototype
 
         public static bool IsValidUser { get => User == null ? false : true; }
         public static string StringPath { get; private set; }
+        public static List<Iten> ix { get; set; }
 
         #region StaticMethods
 
