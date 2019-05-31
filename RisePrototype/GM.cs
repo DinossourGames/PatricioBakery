@@ -113,48 +113,7 @@ namespace RisePrototype
             return false;
         }
 
-        //private static bool Connect()
-        //{
-        //    if (State == 0)
-        //    {
-        //        try
-        //        {
-        //            Sg.Reference.Child("GameData").Child(Sg.User.Id).AsObservable<GameData>().Subscribe(i => {
-        //                State = ConnectionState.LISTENING;
-        //                ServerData = i.Object;
-        //            });
-        //            return true;
-        //        }
-        //        catch
-        //        {
-        //            State = ConnectionState.DISCONNECTED;
-        //            return false;
-        //        }
-        //    }
-
-        //    return true;
-        //}
-        //private static bool PoolListener()
-        //{
-        //    if (State == 0)
-        //    {
-        //        try
-        //        {
-        //            Sg.Reference.Child("GameData").Child(Sg.User.Id).AsObservable<string>().Subscribe(i => {
-        //                Pool = i.Object;
-        //            });
-        //            return true;
-        //        }
-        //        catch
-        //        {
-        //            State = ConnectionState.DISCONNECTED;
-        //            return false;
-        //        }
-        //    }
-
-        //    return true;
-        //}
-
+     
         public static void ComputeClick()
         {
             Game.Breads += Game.ClickValue;

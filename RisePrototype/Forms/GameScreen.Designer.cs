@@ -291,6 +291,7 @@
             this.btnLeaderboard.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.btnLeaderboard.TabIndex = 30;
             this.btnLeaderboard.TabStop = false;
+            this.btnLeaderboard.Visible = false;
             this.btnLeaderboard.Click += new System.EventHandler(this.btnLeaderboard_Click);
             // 
             // pictureBox2

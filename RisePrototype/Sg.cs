@@ -13,7 +13,6 @@ namespace RisePrototype
         public const string BaseUrl = "https://patricioclicker.firebaseio.com/";
         public static User User { get; set; }
         public static FirebaseClient Reference { get; set; }
-        public static string ServerIp { get; set; }
 
 
         public static Image CloseButtonDefault { get; set; } = RisePrototype.Properties.Resources.close;
@@ -52,17 +51,6 @@ namespace RisePrototype
         public static string StringPath { get; private set; }
 
         #region StaticMethods
-
-        public static void Initiate()
-        {
-            Reference.Child("Image").AsObservable<string>().Subscribe(i =>
-            {
-                StringPath = i.Object;
-            });
-        }
-
-
-
 
         //Create
         public async static Task<bool> CreateUserAsync(User user)

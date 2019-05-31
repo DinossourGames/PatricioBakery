@@ -1,11 +1,12 @@
 ﻿using CustomControllers;
 using Firebase.Database.Query;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-
+using ClassModels;
 namespace RisePrototype
 {
     public partial class GameScreen : Form
@@ -161,11 +162,10 @@ namespace RisePrototype
         bool first = true;
         public int Quantidade { get; set; } = 1;
 
-        // public string Clicked = "https://firebasestorage.googleapis.com/v0/b/patricioclicker.appspot.com/o/ai.png?alt=media&token=520bce99-f670-4bf2-9baa-3c7c4d94af60";
 
         public GameScreen()
         {
-
+            RestHelper.GetServerIp();
             Sg.LoginForm.Hide();
             InitializeComponent();
             int style = NativeWinAPI.GetWindowLong(this.Handle, NativeWinAPI.GWL_EXSTYLE);
@@ -334,7 +334,22 @@ namespace RisePrototype
 
         private void btnLeaderboard_Click(object sender, EventArgs e)
         {
-            RestHelper.GetServerIp();
+            
         }
     }
+
+
+    public class Pool
+    {
+        public List<Iten> Items { get; set; }
+        public string Id { get; set; }
+    }
+
+    public class Iten
+    {
+        public Item Item { get; set; }
+        public int Votes { get; set; }
+    }
+
+
 }
